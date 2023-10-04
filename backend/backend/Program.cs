@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("MyDbConnection");
+
+// Register DbContext with the connection string
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString)
+);
 
 
 builder.Services.AddControllers();
