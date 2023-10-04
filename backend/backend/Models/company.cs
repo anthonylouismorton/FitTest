@@ -6,36 +6,37 @@ public class Company
     [Key]
     public int companyID { get; set; }
 
+    [MaxLength(255)]
+    public string? name { get; set; }
+
     [Required]
     [MaxLength(255)]
-    public string companyAddress1 { get; set; }
+    public string? address1 { get; set; }
     
     [MaxLength(255)]
-    public string? companyAddress2 { get; set; }
+    public string? address2 { get; set; }
 
     [MaxLength(255)]
-    public string? companyAddress3 { get; set; }
+    public string? address3 { get; set; }
 
-    [Required]
     [MaxLength(255)]
-    public string companyCity{ get; set; }
+    public string? city { get; set; }
 
     [MaxLength(2)]
-    public string? companystate { get; set; }
+    public string? state { get; set; }
 
     [MaxLength(10)]
-    public string? companyZipCode { get; set; }
-
-    [Required]
-    [MaxLength(255)]
-    public string companyEmail { get; set; }
+    public string? zipcode { get; set; }
 
     [MaxLength(255)]
-    public string? companyAltEmail { get; set; }
+    public string? email { get; set; }
+
+    [MaxLength(255)]
+    public string? altemail { get; set; }
 
     [MaxLength(20)]
-    public string? companyPhoneNumber { get; set; }
+    public string? phonenumber { get; set; }
 
     [MaxLength(10)]
-    public string? companyPhoneNumberExt { get; set; }
+    public string? phonenumberext { get; set; }
 }

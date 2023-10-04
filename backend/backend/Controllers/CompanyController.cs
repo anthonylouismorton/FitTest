@@ -10,35 +10,35 @@ namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CompaniesController : ControllerBase
+    public class CompanyController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public CompaniesController(AppDbContext context)
+        public CompanyController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Companies
+        // GET: api/Company
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Company>>> GetCompanies()
+        public async Task<ActionResult<IEnumerable<Company>>> GetCompany()
         {
-          if (_context.Companies == null)
+          if (_context.Company == null)
           {
               return NotFound();
           }
-            return await _context.Companies.ToListAsync();
+            return await _context.Company.ToListAsync();
         }
 
-        // GET: api/Companies/5
+        // GET: api/Company/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Company>> GetCompany(int id)
         {
-          if (_context.Companies == null)
+          if (_context.Company == null)
           {
               return NotFound();
           }
-            var company = await _context.Companies.FindAsync(id);
+            var company = await _context.Company.FindAsync(id);
 
             if (company == null)
             {
@@ -48,7 +48,7 @@ namespace backend.Controllers
             return company;
         }
 
-        // PUT: api/Companies/5
+        // PUT: api/Company/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCompany(int id, Company company)
@@ -79,36 +79,36 @@ namespace backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Companies
+        // POST: api/Company
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Company>> PostCompany(Company company)
         {
-          if (_context.Companies == null)
+          if (_context.Company == null)
           {
-              return Problem("Entity set 'AppDbContext.Companies'  is null.");
+              return Problem("Entity set 'AppDbContext.Company'  is null.");
           }
-            _context.Companies.Add(company);
+            _context.Company.Add(company);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCompany", new { id = company.companyID }, company);
         }
 
-        // DELETE: api/Companies/5
+        // DELETE: api/Company/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
-            if (_context.Companies == null)
+            if (_context.Company == null)
             {
                 return NotFound();
             }
-            var company = await _context.Companies.FindAsync(id);
+            var company = await _context.Company.FindAsync(id);
             if (company == null)
             {
                 return NotFound();
             }
 
-            _context.Companies.Remove(company);
+            _context.Company.Remove(company);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -116,7 +116,7 @@ namespace backend.Controllers
 
         private bool CompanyExists(int id)
         {
-            return (_context.Companies?.Any(e => e.companyID == id)).GetValueOrDefault();
+            return (_context.Company?.Any(e => e.companyID == id)).GetValueOrDefault();
         }
     }
 }

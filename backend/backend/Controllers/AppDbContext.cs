@@ -2,7 +2,7 @@
 
 public class AppDbContext : DbContext
 {
-    public DbSet<Company> Companies { get; set; }
+    public DbSet<Company> Company { get; set; }
     // Define DbSet properties for other entities if needed
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
