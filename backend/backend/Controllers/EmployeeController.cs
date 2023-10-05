@@ -10,16 +10,16 @@ namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public EmployeesController(AppDbContext context)
+        public EmployeeController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Employees
+        // GET: api/Employee
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
         {
@@ -30,7 +30,7 @@ namespace backend.Controllers
             return await _context.Employee.ToListAsync();
         }
 
-        // GET: api/Employees/5
+        // GET: api/Employee/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
@@ -48,7 +48,7 @@ namespace backend.Controllers
             return employee;
         }
 
-        // PUT: api/Employees/5
+        // PUT: api/Employee/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(int id, Employee employee)
@@ -79,7 +79,7 @@ namespace backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Employees
+        // POST: api/Employee
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
@@ -94,7 +94,7 @@ namespace backend.Controllers
             return CreatedAtAction("GetEmployee", new { id = employee.employeeID }, employee);
         }
 
-        // DELETE: api/Employees/5
+        // DELETE: api/Employee/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {

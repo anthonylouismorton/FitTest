@@ -1,22 +1,7 @@
 import axios from 'axios';
+import { Employee } from '../../interfaces'
 
 const apiBaseURL = 'https://localhost:7156/api/Employee';
-
-interface EmployeeData {
-    firstname: String,
-    middlename: String,
-    lastname: String,
-    address1: String,
-    address2: String,
-    address3: String,
-    birthday: String,
-    ssn: String,
-    city: String,
-    state: String,
-    zipcode: String,
-    email: String,
-    phonenumber: String
-}
 
 export const employeeApi = {
   getEmployeeData: async () => {
@@ -29,7 +14,7 @@ export const employeeApi = {
     }
   },
 
-  createEmployeeData: async (employeeData: EmployeeData) => {
+  createEmployeeData: async (employeeData: Employee) => {
     console.log(employeeData)
     try{
       const response = await axios.post(apiBaseURL, employeeData);

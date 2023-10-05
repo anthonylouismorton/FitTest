@@ -18,8 +18,8 @@ public class Employee
     public string? lastname { get; set; }
 
     [Required]
-    [MaxLength(255)]
-    public DateTime? birthday { get; set; }
+    [DataType(DataType.Date)]
+    public System.DateTime birthday { get; set; }
 
     [Required]
     [MaxLength(255)]
@@ -53,5 +53,4 @@ public class Employee
     [Required]
     public int companyID { get; set; }
 
-    public Company Company { get; set; }
 }

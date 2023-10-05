@@ -1,5 +1,5 @@
 export interface Company {
-  companyID: Number;
+  companyID?: Number;
   name?: string;
   address1?: string;
   address2?: string;
@@ -14,17 +14,18 @@ export interface Company {
 }
 
 export interface Employee {
-  firstname: String,
-  middlename: String,
-  lastname: String,
-  address1: String,
-  address2: String,
-  address3: String,
-  birthday: String,
-  ssn: String,
-  city: String,
-  state: String,
-  zipcode: String,
-  email: String,
-  phonenumber: String
+  firstname: string,
+  middlename: string,
+  lastname: string,
+  address1: string,
+  address2: string,
+  address3: string,
+  birthday: Date;
+  ssn: string,
+  city: string,
+  state: string,
+  zipcode: string,
+  email: string,
+  phonenumber: string
+  companyID: number
 }

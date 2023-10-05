@@ -14,9 +14,9 @@ export const companyApi = {
     }
   },
 
-  createCompanyData: async (companyData: Company) => {
+  createCompanyData: async (company: Company) => {
     try{
-      const response = await axios.post(apiBaseURL, companyData);
+      const response = await axios.post(apiBaseURL, company);
       return response.data;
     }
     catch(error)
