@@ -29,3 +29,10 @@ export interface Employee {
   phonenumber: string
   companyID: number
 }
+
+export interface Respirator {
+  make: string,
+  model: string,
+  style: string,
+  fitfactor: string
+}
