@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios'
-import { apiService } from '../api/company/route';
+import { companyApi } from '../api/company/route';
 
 const Company = () => {
   const [company, setCompany] = useState({
@@ -28,14 +28,14 @@ const Company = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await apiService.createCompanyData(company);
+      await companyApi.createCompanyData(company);
       console.log('Company data created successfully');
     } 
     catch (error) {
       console.error('Error creating company data:', error);
     }
   };
-  
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">

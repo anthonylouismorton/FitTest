@@ -28,21 +28,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        var dbContext = services.GetRequiredService<AppDbContext>();
-        dbContext.Database.OpenConnection();
-        dbContext.Database.CloseConnection();
-        Console.WriteLine("Database connection is valid.");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error checking database connection: {ex.Message}");
-    }
-}
 
 app.UseCors(MyAllowSpecificOrigins);
 
