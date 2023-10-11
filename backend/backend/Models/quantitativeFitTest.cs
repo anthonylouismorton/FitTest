@@ -6,7 +6,7 @@ public class QuantitativeFitTest
     [Key]
     public int quantitativeTestID { get; set; }
 
-    public Boolean testpass { get; set; }
+    public bool testpass { get; set; }
 
     [Required]
     [DataType(DataType.Date)]

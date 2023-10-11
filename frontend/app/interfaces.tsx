@@ -36,3 +36,21 @@ export interface Respirator {
   style: string,
   fitfactor: string
 }
+
+export interface QuantitativeFitTest{
+  testpass: string,
+  testdate: Date,
+  testtime: Date,
+  testexpiration: Date,
+  fitfactor1: string,
+  fitfactor2: string,
+  fitfactor3: string,
+  fitfactor4: string,
+  fitfactor5: string,
+  fitfactor6: string,
+  fitfactor7: string,
+  fitfactor8: string,
+  overallfitfactor: string,
+  employeeID: number,
+  respiratorID: number
+}
