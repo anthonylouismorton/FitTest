@@ -1,8 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import { respiratorApi } from '../api/respirator/route';
+import { Respirator } from '../interfaces';
 const Respirator = () => {
-  const [respirator, setRespirator] = useState({
+  const [respirator, setRespirator] = useState<Respirator>({
     make: "",
     model: "",
     style: "",
@@ -17,9 +18,8 @@ const Respirator = () => {
   };
 
   const handleStyleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    let style = e.target.value;
-    let fitfactor ='';
-    console.log(style)
+    const style: string = e.target.value;
+    let fitfactor: string = "";
     if(style === "fullface"){
       fitfactor = "500"
     }
@@ -95,7 +95,6 @@ const Respirator = () => {
             <option value="gasmask">Gas Mask</option>
           </select>
         </div>
-
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             Fit Factor

@@ -1,19 +1,20 @@
 export interface Company {
   companyID?: Number;
-  name?: string;
-  address1?: string;
-  address2?: string;
-  address3?: string;
-  city?: string;
-  state?: string;
-  zipcode?: string;
-  email?: string;
-  altemail?: string;
-  phonenumber?: string;
-  phonenumberext?: string;
+  name: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  email: string;
+  altemail: string;
+  phonenumber: string;
+  phonenumberext: string;
 }
 
 export interface Employee {
+  employeeID?: Number;
   firstname: string,
   middlename: string,
   lastname: string,
@@ -31,6 +32,7 @@ export interface Employee {
 }
 
 export interface Respirator {
+  respiratorID?: number,
   make: string,
   model: string,
   style: string,
@@ -51,6 +53,7 @@ export interface QuantitativeFitTest{
   fitfactor7: string,
   fitfactor8: string,
   overallfitfactor: string,
-  employeeID: number,
-  respiratorID: number
+  employeeID: number | undefined,
+  respiratorID: number | undefined,
+  size: string
 }

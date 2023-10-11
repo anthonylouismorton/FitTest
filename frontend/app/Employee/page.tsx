@@ -74,6 +74,7 @@ const AddEmployee = () => {
 
     if(selectedCompany && checkDate && checkZip && checkPhone && checkEmail && checkState && checkSSN){
       const formattedEmployee = {
+        employeeID: undefined,
         firstname: employee.firstname,
         middlename: employee.middlename,
         lastname: employee.lastname,
@@ -99,7 +100,6 @@ const AddEmployee = () => {
     }
   };
   
-  console.log(selectedCompany)
   useEffect(() => {
     const getCompanyList = async () => {
       try{
@@ -314,7 +314,7 @@ const AddEmployee = () => {
             >
               <option value=""></option>
               {companyList.map((company) => (
-                <option key={company.companyID.toString()} value={company.companyID.toString()}>
+                <option key={company.companyID?.toString()} value={company.companyID?.toString()}>
                   {company.name}
                 </option>
               ))}
