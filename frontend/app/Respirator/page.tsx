@@ -6,8 +6,8 @@ const Respirator = () => {
   const [respirator, setRespirator] = useState<Respirator>({
     make: "",
     model: "",
-    style: "",
-    fitfactor: "500"
+    style: "fullface",
+    fitfactor: 500
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,18 +19,18 @@ const Respirator = () => {
 
   const handleStyleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const style: string = e.target.value;
-    let fitfactor: string = "";
+    let fitfactor: number = Number(e.target.value);
     if(style === "fullface"){
-      fitfactor = "500"
+      fitfactor = 500
     }
     else if(style === "halfface"){
-      fitfactor = "100"
+      fitfactor = 100
     }
     else if(style === "gasmask"){
-      fitfactor = "2000"
+      fitfactor = 2000
     }
     else if(style === "ffd"){
-      fitfactor = "100"
+      fitfactor = 100
     }
 
     setRespirator({...respirator, style: e.target.value, fitfactor: fitfactor });

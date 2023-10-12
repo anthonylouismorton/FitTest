@@ -18,7 +18,7 @@ public class Respirator
     public string? style { get; set; }
 
     [Required]
-    [MaxLength(255)]
-    public string? fitfactor { get; set; }
+    [Range(0, 9999999)]
+    public int fitfactor { get; set; }
 
 }

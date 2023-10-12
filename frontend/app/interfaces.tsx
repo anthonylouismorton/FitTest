@@ -36,24 +36,25 @@ export interface Respirator {
   make: string,
   model: string,
   style: string,
-  fitfactor: string
+  fitfactor: number
 }
 
 export interface QuantitativeFitTest{
-  testpass: string,
+  testpass: boolean,
   testdate: Date,
   testtime: Date,
   testexpiration: Date,
-  fitfactor1: string,
-  fitfactor2: string,
-  fitfactor3: string,
-  fitfactor4: string,
-  fitfactor5: string,
-  fitfactor6: string,
-  fitfactor7: string,
-  fitfactor8: string,
-  overallfitfactor: string,
+  fitfactor1: number,
+  fitfactor2: number,
+  fitfactor3: number,
+  fitfactor4: number,
+  fitfactor5: number,
+  fitfactor6: number,
+  fitfactor7: number,
+  fitfactor8: number,
+  overallfitfactor: number,
   employeeID: number | undefined,
   respiratorID: number | undefined,
-  size: string
+  size: string,
+  testtype: string
 }

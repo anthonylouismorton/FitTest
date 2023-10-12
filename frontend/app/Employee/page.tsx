@@ -90,6 +90,7 @@ const AddEmployee = () => {
         phonenumber: employee.phonenumber.replaceAll("-",""),
         companyID: parseInt(selectedCompany)
       };
+      console.log(formattedEmployee)
       try {
         await employeeApi.createEmployeeData(formattedEmployee);
         console.log('Employee data created successfully');

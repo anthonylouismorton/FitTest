@@ -10,7 +10,8 @@ public class AppDbContext : DbContext
         : base(options)
     {
     }
-    public DbSet<QuantitativeFitTest>? QuantitativeFitTest { get; set; }
+    public DbSet<QuantitativeRespiratorFitTest>? QuantitativeRespiratorFitTest { get; set; }
+
 
 
 }

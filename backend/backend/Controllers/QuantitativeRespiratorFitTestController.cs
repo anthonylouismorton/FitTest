@@ -21,44 +21,44 @@ namespace backend.Controllers
 
         // GET: api/QuantitativeRespiratorFitTest
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<QuantitativeFitTest>>> GetQuantitativeFitTest()
+        public async Task<ActionResult<IEnumerable<QuantitativeRespiratorFitTest>>> GetQuantitativeRespiratorFitTest()
         {
-          if (_context.QuantitativeFitTest == null)
+          if (_context.QuantitativeRespiratorFitTest == null)
           {
               return NotFound();
           }
-            return await _context.QuantitativeFitTest.ToListAsync();
+            return await _context.QuantitativeRespiratorFitTest.ToListAsync();
         }
 
         // GET: api/QuantitativeRespiratorFitTest/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<QuantitativeFitTest>> GetQuantitativeFitTest(int id)
+        public async Task<ActionResult<QuantitativeRespiratorFitTest>> GetQuantitativeRespiratorFitTest(int id)
         {
-          if (_context.QuantitativeFitTest == null)
+          if (_context.QuantitativeRespiratorFitTest == null)
           {
               return NotFound();
           }
-            var quantitativeFitTest = await _context.QuantitativeFitTest.FindAsync(id);
+            var quantitativeRespiratorFitTest = await _context.QuantitativeRespiratorFitTest.FindAsync(id);
 
-            if (quantitativeFitTest == null)
+            if (quantitativeRespiratorFitTest == null)
             {
                 return NotFound();
             }
 
-            return quantitativeFitTest;
+            return quantitativeRespiratorFitTest;
         }
 
         // PUT: api/QuantitativeRespiratorFitTest/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuantitativeFitTest(int id, QuantitativeFitTest quantitativeFitTest)
+        public async Task<IActionResult> PutQuantitativeRespiratorFitTest(int id, QuantitativeRespiratorFitTest quantitativeRespiratorFitTest)
         {
-            if (id != quantitativeFitTest.quantitativeTestID)
+            if (id != quantitativeRespiratorFitTest.quantitativeTestID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(quantitativeFitTest).State = EntityState.Modified;
+            _context.Entry(quantitativeRespiratorFitTest).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!QuantitativeFitTestExists(id))
+                if (!QuantitativeRespiratorFitTestExists(id))
                 {
                     return NotFound();
                 }
@@ -82,41 +82,41 @@ namespace backend.Controllers
         // POST: api/QuantitativeRespiratorFitTest
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<QuantitativeFitTest>> PostQuantitativeFitTest(QuantitativeFitTest quantitativeFitTest)
+        public async Task<ActionResult<QuantitativeRespiratorFitTest>> PostQuantitativeRespiratorFitTest(QuantitativeRespiratorFitTest quantitativeRespiratorFitTest)
         {
-          if (_context.QuantitativeFitTest == null)
+          if (_context.QuantitativeRespiratorFitTest == null)
           {
-              return Problem("Entity set 'AppDbContext.QuantitativeFitTest'  is null.");
+              return Problem("Entity set 'AppDbContext.QuantitativeRespiratorFitTest'  is null.");
           }
-            _context.QuantitativeFitTest.Add(quantitativeFitTest);
+            _context.QuantitativeRespiratorFitTest.Add(quantitativeRespiratorFitTest);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuantitativeFitTest", new { id = quantitativeFitTest.quantitativeTestID }, quantitativeFitTest);
+            return CreatedAtAction("GetQuantitativeRespiratorFitTest", new { id = quantitativeRespiratorFitTest.quantitativeTestID }, quantitativeRespiratorFitTest);
         }
 
         // DELETE: api/QuantitativeRespiratorFitTest/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuantitativeFitTest(int id)
+        public async Task<IActionResult> DeleteQuantitativeRespiratorFitTest(int id)
         {
-            if (_context.QuantitativeFitTest == null)
+            if (_context.QuantitativeRespiratorFitTest == null)
             {
                 return NotFound();
             }
-            var quantitativeFitTest = await _context.QuantitativeFitTest.FindAsync(id);
-            if (quantitativeFitTest == null)
+            var quantitativeRespiratorFitTest = await _context.QuantitativeRespiratorFitTest.FindAsync(id);
+            if (quantitativeRespiratorFitTest == null)
             {
                 return NotFound();
             }
 
-            _context.QuantitativeFitTest.Remove(quantitativeFitTest);
+            _context.QuantitativeRespiratorFitTest.Remove(quantitativeRespiratorFitTest);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool QuantitativeFitTestExists(int id)
+        private bool QuantitativeRespiratorFitTestExists(int id)
         {
-            return (_context.QuantitativeFitTest?.Any(e => e.quantitativeTestID == id)).GetValueOrDefault();
+            return (_context.QuantitativeRespiratorFitTest?.Any(e => e.quantitativeTestID == id)).GetValueOrDefault();
         }
     }
 }

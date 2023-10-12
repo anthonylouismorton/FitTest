@@ -6,7 +6,7 @@ import { QuantitativeFitTest, Employee, Respirator } from '../interfaces';
 import { employeeApi } from '../api/employee/route';
 const QuantitativeFitTest = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<string | undefined>(undefined);
-  const [selectedRespirator, setSelectedRespirator] = useState<string | undefined>(undefined);
+  const [selectedRespirator, setSelectedRespirator] = useState<Respirator | undefined>(undefined);
   const [employeeList, setEmployeeList] = useState<Employee[]>([]);
   const [respiratorList, setRespiratorList] = useState<Respirator[]>([]);
   const [validation, setValidation] = useState({
@@ -18,48 +18,69 @@ const QuantitativeFitTest = () => {
     fitfactor6: undefined,
     fitfactor7: undefined,
     fitfactor8: undefined,
-  });
-  const [fittest, setFittest] = useState<QuantitativeFitTest>({
     testpass: "",
-    testdate: new Date(),
-    testtime: new Date(),
-    testexpiration: new Date(),
-    fitfactor1: "",
-    fitfactor2: "",
-    fitfactor3: "",
-    fitfactor4: "",
-    fitfactor5: "",
-    fitfactor6: "",
-    fitfactor7: "",
-    fitfactor8: "",
-    overallfitfactor: "",
+  });
+  const initialDate = new Date();
+  const expirationDate = new Date(initialDate);
+  expirationDate.setFullYear(initialDate.getFullYear() + 1);
+  const [fittest, setFittest] = useState<QuantitativeFitTest>({
+    testpass: false,
+    testdate: initialDate,
+    testtime: initialDate,
+    testexpiration: expirationDate,
+    fitfactor1: 0,
+    fitfactor2: 0,
+    fitfactor3: 0,
+    fitfactor4: 0,
+    fitfactor5: 0,
+    fitfactor6: 0,
+    fitfactor7: 0,
+    fitfactor8: 0,
+    overallfitfactor: 0,
+    testtype: "QNFT",
     employeeID: undefined,
     respiratorID: undefined,
-    size: ""
+    size: "Small"
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFittest({
-      ...fittest,
-      [e.target.name]: e.target.value
-    });
+// Helper function to convert a time string to a Date object
+  const parseTime = (timeString: string) => {
+    const [hours, minutes] = timeString.split(':');
+    const date = new Date();
+    date.setHours(parseInt(hours, 10));
+    date.setMinutes(parseInt(minutes, 10));
+    return date;
   };
+
+  
+  // Helper function to format a Date object as a time string
+  const formatTime = (date: Date) => {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedTime = parseTime(e.target.value);
+    setFittest({ ...fittest, testtime: selectedTime });
+  };
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = new Date(e.target.value);
+    setFittest({ ...fittest, [e.target.name]: selectedDate });
+  };
+  
   const handleFitFactor = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    const checkNumber = Number(value)
-    console.log(checkNumber)
-    if(Number.isNaN(checkNumber)){
+    const value = Number(e.target.value)
+    if(Number.isNaN(value)){
       setValidation({...validation, [e.target.name]: "Numbers Only"})
     }
-    else if(value.length > 7){
+    else if(e.target.value.length > 7){
       setValidation({...validation, [e.target.name]: "Fit Factor must be less than 7 digits"})
     }
     else{
-      console.log('in the else')
       setValidation({...validation, [e.target.name]: undefined})
       setFittest({
         ...fittest,
-        [e.target.name]: e.target.value
+        [e.target.name]: value
       });
     }
   };
@@ -69,18 +90,26 @@ const QuantitativeFitTest = () => {
   };
 
   const handleEmployeeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedEmployee(e.target.value);
+    const selectedValue = e.target.value;
+    const selectedEmployee = JSON.parse(selectedValue);
+    console.log(selectedEmployee)
+    setSelectedEmployee(selectedEmployee);
+    setFittest({ ...fittest, employeeID: selectedEmployee.employeeID });
   };
 
   const handleRespiratorSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedRespirator(e.target.value);
+    const selectedValue = e.target.value;
+    const selectedRespirator = JSON.parse(selectedValue);
+    setSelectedRespirator(selectedRespirator);
+    setFittest({ ...fittest, respiratorID: selectedRespirator.respiratorID });
   };
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await quantitativefittestApi.createQuantitativeData(fittest);
-      console.log('Respirator data created successfully');
+      console.log('Quantitative test created successfully');
     } 
     catch (error) {
       console.error('Error creating fittest data:', error);
@@ -94,7 +123,7 @@ const QuantitativeFitTest = () => {
         setEmployeeList(employeeList)
       }
       catch(error){
-        console.error('Error feteching Employee data:', error)
+        console.error('Error fetching Employee data:', error)
       }
     }
     const getRespiratorList = async () => {
@@ -103,12 +132,45 @@ const QuantitativeFitTest = () => {
         setRespiratorList(respiratorList)
       }
       catch(error){
-        console.error('Error feteching Respirator data:', error)
+        console.error('Error fetching Respirator data:', error)
       }
     }
     getEmployeeList();
     getRespiratorList();
   },[])
+
+  useEffect(()=> {
+    const totalFitFactor = Math.round(
+      (fittest.fitfactor1 +
+        fittest.fitfactor2 +
+        fittest.fitfactor3 +
+        fittest.fitfactor4 +
+        fittest.fitfactor5 +
+        fittest.fitfactor6 +
+        fittest.fitfactor7 +
+        fittest.fitfactor8) /
+        8
+    );
+  
+    const updatedFittest = { ...fittest, overallfitfactor: totalFitFactor };
+    setFittest(updatedFittest);
+  
+    const minFitFactor = Number(selectedRespirator?.fitfactor);
+  
+    if (selectedRespirator) {
+      if (minFitFactor > totalFitFactor) {
+        setValidation({
+          ...validation,
+          testpass: `Overall Fit Factor must be above ${selectedRespirator?.fitfactor}`,
+        });
+        setFittest({ ...updatedFittest, testpass: false });
+      } else {
+        setValidation({ ...validation, testpass: "" });
+        setFittest({ ...updatedFittest, testpass: true });
+      }
+    }
+
+  },[fittest.fitfactor1, fittest.fitfactor2, fittest.fitfactor3, fittest.fitfactor4, fittest.fitfactor5, fittest.fitfactor6, fittest.fitfactor7, fittest.fitfactor8, selectedRespirator])
   console.log(fittest)
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -119,12 +181,12 @@ const QuantitativeFitTest = () => {
          <div>
           <label className="block text-sm font-medium text-gray-700">Select Employee</label>
             <select
-              value={selectedEmployee}
+            value={selectedEmployee ? JSON.stringify(selectedEmployee) : ""}
               onChange={handleEmployeeSelect}
             >
               <option value=""></option>
               {employeeList.map((employee) => (
-                <option key={employee.employeeID?.toString()} value={employee.employeeID?.toString()}>
+              <option key={employee.employeeID?.toString()} value={JSON.stringify(employee)}>
                   {`${employee.firstname} ${employee.lastname}`}
                 </option>
               ))}
@@ -134,19 +196,58 @@ const QuantitativeFitTest = () => {
         {respiratorList.length > 0 &&
          <div>
           <label className="block text-sm font-medium text-gray-700">Select Respirator</label>
-            <select
-              value={selectedRespirator}
-              onChange={handleRespiratorSelect}
-            >
-              <option value=""></option>
-              {respiratorList.map((respirator) => (
-                <option key={respirator.respiratorID?.toString()} value={respirator.respiratorID?.toString()}>
-                  {`${respirator.make} ${respirator.model}`}
-                </option>
-              ))}
-            </select>
+          <select
+            value={selectedRespirator ? JSON.stringify(selectedRespirator) : ""}
+            onChange={handleRespiratorSelect}
+          >
+            <option value=""></option>
+            {respiratorList.map((respirator) => (
+              <option key={respirator.respiratorID?.toString()} value={JSON.stringify(respirator)}>
+                {`${respirator.make} ${respirator.model}`}
+              </option>
+            ))}
+          </select>
           </div>
         }
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Fit Test Date
+          </label>
+          <input
+            type="date"
+            value={fittest.testdate.toISOString().split('T')[0]}
+            name="testdate"
+            onChange={handleDateChange}
+            className="mt-1 p-2 block w-full rounded-md border-gray-300"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Fit Test Time
+          </label>
+          <input
+            type="time"
+            value={formatTime(fittest.testtime)}
+            name="testtime"
+            onChange={handleTimeChange}
+            className="mt-1 p-2 block w-full rounded-md border-gray-300"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Expiration Date
+          </label>
+          <input
+            type="date"
+            value={fittest.testexpiration.toISOString().split('T')[0]}
+            name="testexpiration"
+            onChange={handleDateChange}
+            className="mt-1 p-2 block w-full rounded-md border-gray-300"
+            required
+          />
+        </div>
         <div className="mb-4">
           {validation.fitfactor1 && (
             <p className="text-red-500 text-xs mt-1">{validation.fitfactor1}</p>
@@ -271,6 +372,22 @@ const QuantitativeFitTest = () => {
             value={fittest.fitfactor8}
             name="fitfactor8"
             onChange={handleFitFactor}
+            className="mt-1 p-2 block w-full rounded-md border-gray-300"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          {validation.testpass && (
+            <p className="text-red-500 text-xs mt-1">{validation.testpass}</p>
+          )}
+          <label className="block text-sm font-medium text-gray-700">
+            Overall Fit Factor
+          </label>
+          <input
+            type="text"
+            value={fittest.overallfitfactor}
+            name="fitfactor8"
+            disabled
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
             required
           />
