@@ -6,11 +6,12 @@ public class AppDbContext : DbContext
     public DbSet<Employee> Employee { get; set; }
 
     public DbSet<Respirator>? Respirator { get; set; }
+    public DbSet<QuantitativeRespiratorFitTest>? QuantitativeRespiratorFitTest { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }
-    public DbSet<QuantitativeRespiratorFitTest>? QuantitativeRespiratorFitTest { get; set; }
+    public DbSet<QualitativeRespiratorFitTest>? QualitativeRespiratorFitTest { get; set; }
 
 
 

@@ -58,3 +58,19 @@ export interface QuantitativeFitTest{
   size: string,
   testtype: string
 }
+
+export interface QualitativeFitTest{
+  testpass: boolean,
+  testdate: Date,
+  testtime: Date,
+  testexpiration: Date,
+  exercise1: boolean | undefined,
+  exercise2: boolean | undefined,
+  exercise3: boolean | undefined,
+  exercise4: boolean | undefined,
+  employeeID: number | undefined,
+  respiratorID: number | undefined,
+  size: string,
+  testtype: string,
+  tastethreshold: number
+}
