@@ -21,4 +21,6 @@ public class Respirator
     [Range(0, 9999999)]
     public int fitfactor { get; set; }
 
+    public bool archived { get; set; } 
+
 }

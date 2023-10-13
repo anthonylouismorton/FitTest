@@ -42,8 +42,10 @@ const Edit = ({ params: { respiratorID } } : { params: { respiratorID: string } 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await respiratorApi.createRespiratorData(respirator);
-      console.log('Respirator data created successfully');
+      if(respirator.respiratorID){
+        await respiratorApi.updateRespirator(respirator.respiratorID, respirator);
+        console.log('Respirator updated successfully');
+      }
     } 
     catch (error) {
       console.error('Error creating respirator data:', error);
@@ -60,6 +62,7 @@ const Edit = ({ params: { respiratorID } } : { params: { respiratorID: string } 
       console.log(error)
     }
   }, [])
+  console.log(respirator)
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       {respirator.respiratorID &&
@@ -127,7 +130,7 @@ const Edit = ({ params: { respiratorID } } : { params: { respiratorID: string } 
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
             >
-              Create
+              Edit
             </button>
             <button
               type="button"

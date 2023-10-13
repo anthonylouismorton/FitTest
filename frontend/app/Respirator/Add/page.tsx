@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import { respiratorApi } from '../../api/respirator/route';
 import { Respirator } from '../../interfaces';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 const Add = () => {
+  const router = useRouter();
   const [respirator, setRespirator] = useState<Respirator>({
     make: "",
     model: "",
     style: "fullface",
-    fitfactor: 500
+    fitfactor: 500,
+    archived: false
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,12 +45,13 @@ const Add = () => {
     try {
       await respiratorApi.createRespiratorData(respirator);
       console.log('Respirator data created successfully');
+      router.push('/Respirator');
     } 
     catch (error) {
       console.error('Error creating respirator data:', error);
     }
   };
-  console.log(respirator)
+
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">

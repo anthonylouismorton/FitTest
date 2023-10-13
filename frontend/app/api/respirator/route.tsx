@@ -4,9 +4,11 @@ import { Respirator } from '../../interfaces'
 const apiBaseURL = 'https://localhost:7156/api/Respirator';
 
 export const respiratorApi = {
-  getRespiratorData: async () => {
+  getRespiratorData: async (includeArchived = false) => {
     try {
-      const response = await axios.get(apiBaseURL);
+      const url = `${apiBaseURL}?includeArchived=${includeArchived ? true : false}`;
+      console.log(url)
+      const response = await axios.get(url);
       return response.data;
     } catch (error) 
     {
@@ -16,6 +18,24 @@ export const respiratorApi = {
   getRespiratorById: async (respiratorID: number) => {
     try {
       const response = await axios.get(`${apiBaseURL}/${respiratorID}`);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
+  deleteRespirator: async (respiratorID: number) => {
+    try {
+      const response = await axios.delete(`${apiBaseURL}/${respiratorID}`);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
+  updateRespirator: async (respiratorID: number, updatedRespirator: Respirator) => {
+    try {
+      const response = await axios.put(`${apiBaseURL}/${respiratorID}`, updatedRespirator);
       return response.data
     } catch (error)
     {
