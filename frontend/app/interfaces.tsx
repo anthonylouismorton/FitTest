@@ -33,10 +33,10 @@ export interface Employee {
 
 export interface Respirator {
   respiratorID?: number,
-  make: string,
-  model: string,
-  style: string,
-  fitfactor: number
+  make?: string,
+  model?: string,
+  style?: string,
+  fitfactor?: number
 }
 
 export interface QuantitativeFitTest{

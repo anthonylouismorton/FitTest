@@ -13,7 +13,15 @@ export const respiratorApi = {
       throw error;
     }
   },
-
+  getRespiratorById: async (respiratorID: number) => {
+    try {
+      const response = await axios.get(`${apiBaseURL}/${respiratorID}`);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
   createRespiratorData: async (respirator: Respirator) => {
     try{
       const response = await axios.post(apiBaseURL, respirator);
@@ -24,4 +32,5 @@ export const respiratorApi = {
       throw error;
     }
   }
+
 };

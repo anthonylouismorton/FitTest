@@ -1,12 +1,11 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Respirator } from '../interfaces';
-import RespiratorCardContainer from './respiratorcardcontainer';
+import Link from 'next/link';
 
 interface RespiratorCardProps {
   respirator: Respirator;
@@ -36,7 +35,9 @@ const RespiratorCard: React.FC<RespiratorCardProps> = ({ respirator }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Edit</Button>
+        <Link href={`/Respirator/${respirator.respiratorID}`} passHref>
+          <button className='text-blue-500 pl-2'>Edit</button>
+        </Link>
       </CardActions>
     </Card>
   );
