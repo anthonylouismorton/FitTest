@@ -21,11 +21,9 @@ public class QualitativeRespiratorFitTest
     public System.DateTime testexpiration { get; set; }
 
     [MaxLength(255)]
-    public string testtype { get; set; }
+    public string? testtype { get; set; }
 
-    [MaxLength(255)]
     public int tastethreshold { get; set; }
-
 
     [MaxLength(255)]
     public string size { get; set; }

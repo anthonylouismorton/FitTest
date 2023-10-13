@@ -23,7 +23,6 @@ public class QuantitativeRespiratorFitTest
     [MaxLength(255)]
     public string? testtype { get; set; }
 
-
     [MaxLength(255)]
     public string? size { get; set; }
 
