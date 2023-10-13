@@ -20,7 +20,7 @@ export default function RespiratorCardContainer() {
   }, [])
   console.log(respiratorList)
   return(
-    <div>
+    <div className='pt-2'>
       {respiratorList.map((respirator) => (
         <RespiratorCard key={respirator.respiratorID} respirator={respirator} />
       ))}

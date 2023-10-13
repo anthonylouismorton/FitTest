@@ -18,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Drawer/>
-        {children}
+        <div className='flex'>
+          <Drawer/>
+          {children}
+        </div>
       </body>
     </html>
   )
