@@ -1,19 +1,29 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Respirator } from '../interfaces';
+import { respiratorApi } from '../api/respirator/route';
 import Link from 'next/link';
 
-interface RespiratorCardProps {
-  respirator: Respirator;
-}
+const RespiratorCard: React.FC<{ respirator: Respirator, onArchive: (respirator: Respirator) => void }> = ({ respirator, onArchive }) => {
+  const [archive, setArchive] = useState<boolean>(false)
 
-const RespiratorCard: React.FC<RespiratorCardProps> = ({ respirator }) => {
+  const handleArchive = async() => {
+    const updatedRespirator = { ...respirator, archived: true };
+    try {
+      await respiratorApi.updateRespirator(Number(updatedRespirator.respiratorID), updatedRespirator);
+      setArchive(false);
+      onArchive(respirator);
+    } catch (error) {
+      console.error("Error deleting respirator:", error);
+    }
+  }
+
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ width: 275, height: 250 }}>
+      {!archive ?
+      <div>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Make
@@ -34,11 +44,37 @@ const RespiratorCard: React.FC<RespiratorCardProps> = ({ respirator }) => {
           {respirator.style}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Link href={`/Respirator/${respirator.respiratorID}`} passHref>
-          <button className='text-blue-500 pl-2'>Edit</button>
-        </Link>
-      </CardActions>
+      <div className='flex justify-evenly pb-1'>
+        <div>
+          <Link href={`/Respirator/${respirator.respiratorID}`} passHref>
+            <button className='text-blue-500 pl-2'>Edit</button>
+          </Link>
+        </div>
+        <div>
+          <button onClick={()=> (setArchive(true))} className='text-blue-500 pl-2'>Archive</button>
+        </div>
+      </div>
+      </div>
+      :
+          <div>
+      <CardContent>
+        <Typography variant='h5' gutterBottom>
+          Are you sure?
+        </Typography>
+        <Typography sx={{ fontSize: 16 }}>
+          This action can't be undone.
+        </Typography>
+      </CardContent>
+      <div className='flex justify-evenly pb-1'>
+        <div>
+          <button onClick={handleArchive} className='text-blue-500 pl-2'>Yes</button>
+        </div>
+        <div>
+          <button onClick={()=> (setArchive(false))} className='text-red-800 pl-2'>Cancel</button>
+        </div>
+      </div>
+      </div>
+      }
     </Card>
   );
 }

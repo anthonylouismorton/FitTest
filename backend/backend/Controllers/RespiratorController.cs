@@ -21,13 +21,20 @@ namespace backend.Controllers
 
         // GET: api/Respirator
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Respirator>>> GetRespirator()
+        public async Task<ActionResult<IEnumerable<Respirator>>> GetRespirator([FromQuery] bool includeArchived = false)
         {
-          if (_context.Respirator == null)
-          {
-              return NotFound();
-          }
-            return await _context.Respirator.ToListAsync();
+            var query = _context.Respirator;
+            if (query == null)
+            {
+                return NotFound();
+            }
+            if (includeArchived)
+            {
+                var archivedRespirators = await query.ToListAsync();
+                return archivedRespirators;
+            }
+            var nonArchivedRespirators = await query.Where(r => !r.archived).ToListAsync();
+            return nonArchivedRespirators;
         }
 
         // GET: api/Respirator/5

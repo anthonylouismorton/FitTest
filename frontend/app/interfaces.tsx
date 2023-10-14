@@ -37,6 +37,7 @@ export interface Respirator {
   model?: string,
   style?: string,
   fitfactor?: number
+  archived?: boolean
 }
 
 export interface QuantitativeFitTest{
