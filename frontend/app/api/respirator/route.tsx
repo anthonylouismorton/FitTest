@@ -7,7 +7,6 @@ export const respiratorApi = {
   getRespiratorData: async (includeArchived = false) => {
     try {
       const url = `${apiBaseURL}?includeArchived=${includeArchived ? true : false}`;
-      console.log(url)
       const response = await axios.get(url);
       return response.data;
     } catch (error) 
