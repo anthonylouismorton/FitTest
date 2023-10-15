@@ -34,7 +34,7 @@ export default function CompanyCardContainer() {
       </div>
       <div className="pt-2 flex flex-wrap space-x-4 space-y-4 items-end">
         {companyList.map((company) => (
-          <CompanyCard key={company.companyID} company={company} onArchive={handleArchiveCompany} archivedRecords={archivedRecords}/>
+          <CompanyCard key={company.companyID} company={company} onArchive={handleArchiveCompany}/>
         ))}
       </div>
     </div>

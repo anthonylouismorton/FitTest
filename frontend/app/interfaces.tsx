@@ -11,6 +11,7 @@ export interface Company {
   altemail?: string;
   phonenumber?: string;
   phonenumberext?: string;
+  archived?: boolean
 }
 
 export interface Employee {

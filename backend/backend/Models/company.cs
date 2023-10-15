@@ -39,4 +39,6 @@ public class Company
 
     [MaxLength(10)]
     public string? phonenumberext { get; set; }
+
+    public bool archived { get; set; }
 }

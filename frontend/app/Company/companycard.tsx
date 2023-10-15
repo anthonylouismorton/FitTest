@@ -6,7 +6,7 @@ import { Company } from '../interfaces';
 import { companyApi } from '../api/company/route';
 import Link from 'next/link';
 
-const CompanyCard: React.FC<{ company: Company, onArchive: (company: Company) => void, archivedRecords: boolean}> = ({ company, onArchive,archivedRecords }) => {
+const CompanyCard: React.FC<{ company: Company, onArchive: (company: Company) => void }> = ({ company, onArchive,}) => {
   const [archive, setArchive] = useState<boolean>(false)
 
   const handleArchive = async() => {
@@ -21,7 +21,7 @@ const CompanyCard: React.FC<{ company: Company, onArchive: (company: Company) =>
   }
 
   return (
-    <Card sx={{ width: 275, height: 250 }}>
+    <Card sx={{ width: 375, height: 325 }}>
       {!archive ?
       <div>
       <CardContent>
