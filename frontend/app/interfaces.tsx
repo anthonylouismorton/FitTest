@@ -1,20 +1,20 @@
 export interface Company {
-  companyID?: Number;
-  name: string;
-  address1: string;
-  address2: string;
-  address3: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  email: string;
-  altemail: string;
-  phonenumber: string;
-  phonenumberext: string;
+  companyID?: number;
+  name?: string;
+  address1?: string;
+  address2?: string;
+  address3?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
+  email?: string;
+  altemail?: string;
+  phonenumber?: string;
+  phonenumberext?: string;
 }
 
 export interface Employee {
-  employeeID?: Number;
+  employeeID?: number;
   firstname: string,
   middlename: string,
   lastname: string,

@@ -1,11 +1,15 @@
 import React from 'react';
-
+import CompanyCardContainer from './companycardcontainer';
+import Link from 'next/link'
 const Company = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <a href='/Company/Add'>
-        <div>New Company</div>
-      </a>
+    <div className='p-2'>
+      <button className='bg-blue-500 p-2 rounded text-white'>
+        <Link href='/Company/Add'>
+          Add Company
+        </Link>
+      </button>
+      <CompanyCardContainer/>
     </div>
   );
 };
