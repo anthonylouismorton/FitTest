@@ -34,7 +34,7 @@ export default function RespiratorCardContainer() {
       </div>
       <div className="pt-2 flex flex-wrap space-x-4 space-y-4 items-end">
         {respiratorList.map((respirator) => (
-          <RespiratorCard key={respirator.respiratorID} respirator={respirator} onArchive={handleArchiveRespirator} archivedRecords={archivedRecords}/>
+          <RespiratorCard key={respirator.respiratorID} respirator={respirator} onArchive={handleArchiveRespirator}/>
         ))}
       </div>
     </div>

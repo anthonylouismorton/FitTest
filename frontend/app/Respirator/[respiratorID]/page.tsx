@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { respiratorApi } from '../../api/respirator/route';
 import { Respirator } from '../../interfaces';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Edit = ({ params: { respiratorID } } : { params: { respiratorID: string } }) => {
+  const router = useRouter();
   const [respirator, setRespirator] = useState<Respirator>({
     respiratorID: undefined,
     make: undefined,
@@ -45,6 +47,7 @@ const Edit = ({ params: { respiratorID } } : { params: { respiratorID: string } 
       if(respirator.respiratorID){
         await respiratorApi.updateRespirator(respirator.respiratorID, respirator);
         console.log('Respirator updated successfully');
+        router.push('/Respirator')
       }
     } 
     catch (error) {

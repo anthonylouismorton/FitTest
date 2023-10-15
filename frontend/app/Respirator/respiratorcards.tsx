@@ -6,7 +6,7 @@ import { Respirator } from '../interfaces';
 import { respiratorApi } from '../api/respirator/route';
 import Link from 'next/link';
 
-const RespiratorCard: React.FC<{ respirator: Respirator, onArchive: (respirator: Respirator) => void, archivedRecords: boolean}> = ({ respirator, onArchive,archivedRecords }) => {
+const RespiratorCard: React.FC<{ respirator: Respirator, onArchive: (respirator: Respirator) => void }> = ({ respirator, onArchive }) => {
   const [archive, setArchive] = useState<boolean>(false)
 
   const handleArchive = async() => {
