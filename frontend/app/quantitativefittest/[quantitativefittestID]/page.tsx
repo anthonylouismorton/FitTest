@@ -2,9 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { quantitativefittestApi } from '../../api/quantitativefittest/route';
 import { respiratorApi } from '../../api/respirator/route';
-import { QuantitativeFitTest, Employee, Respirator } from '../../interfaces';
 import { employeeApi } from '../../api/employee/route';
-const QuantitativeFitTest = () => {
+import { QuantitativeFitTest, Employee, Respirator } from '../../interfaces';
+import { useRouter } from 'next/navigation';
+
+const Edit = ({ params: { quantitativeTestID } } : { params: { quantitativeTestID: string } }) => {
+  const router = useRouter();
   const [selectedEmployee, setSelectedEmployee] = useState<string | undefined>(undefined);
   const [selectedRespirator, setSelectedRespirator] = useState<Respirator | undefined>(undefined);
   const [employeeList, setEmployeeList] = useState<Employee[]>([]);
@@ -24,7 +27,8 @@ const QuantitativeFitTest = () => {
   const expirationDate = new Date(initialDate);
   expirationDate.setFullYear(initialDate.getFullYear() + 1);
   const [fittest, setFittest] = useState<QuantitativeFitTest>({
-    testpass: false,
+    quantitativeTestID: undefined,
+    testpass: undefined,
     testdate: initialDate,
     testtime: initialDate,
     testexpiration: expirationDate,
@@ -37,10 +41,10 @@ const QuantitativeFitTest = () => {
     fitfactor7: 0,
     fitfactor8: 0,
     overallfitfactor: 0,
-    testtype: "QNFT",
+    testtype: undefined,
     employeeID: undefined,
     respiratorID: undefined,
-    size: "Small"
+    size: undefined
   });
 
   const parseTime = (timeString: string) => {
@@ -100,13 +104,15 @@ const QuantitativeFitTest = () => {
     setSelectedRespirator(selectedRespirator);
     setFittest({ ...fittest, respiratorID: selectedRespirator.respiratorID });
   };
-  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await quantitativefittestApi.createQuantitativeData(fittest);
+      if(fittest.quantitativeTestID){
+      await quantitativefittestApi.updateQuantitativeFitTest(fittest.quantitativeTestID, fittest);
       console.log('Quantitative test created successfully');
+      router.push('./Quantitativefittest')
+      }
     } 
     catch (error) {
       console.error('Error creating fittest data:', error);
@@ -137,17 +143,17 @@ const QuantitativeFitTest = () => {
   },[])
 
   useEffect(()=> {
-    const totalFitFactor = Math.round(
-      (fittest.fitfactor1 +
-        fittest.fitfactor2 +
-        fittest.fitfactor3 +
-        fittest.fitfactor4 +
-        fittest.fitfactor5 +
-        fittest.fitfactor6 +
-        fittest.fitfactor7 +
-        fittest.fitfactor8) /
-        8
-    );
+    var totalFitFactor = Math.round(
+        (fittest.fitfactor1 +
+          fittest.fitfactor2 +
+          fittest.fitfactor3 +
+          fittest.fitfactor4 +
+          fittest.fitfactor5 +
+          fittest.fitfactor6 +
+          fittest.fitfactor7 +
+          fittest.fitfactor8) /
+          8
+      );
   
     const updatedFittest = { ...fittest, overallfitfactor: totalFitFactor };
     setFittest(updatedFittest);
@@ -168,7 +174,7 @@ const QuantitativeFitTest = () => {
     }
 
   },[fittest.fitfactor1, fittest.fitfactor2, fittest.fitfactor3, fittest.fitfactor4, fittest.fitfactor5, fittest.fitfactor6, fittest.fitfactor7, fittest.fitfactor8, selectedRespirator])
-
+ 
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
@@ -419,4 +425,4 @@ const QuantitativeFitTest = () => {
   );
 };
 
-export default QuantitativeFitTest;
+export default Edit;
