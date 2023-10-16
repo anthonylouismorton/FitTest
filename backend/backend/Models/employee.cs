@@ -53,4 +53,5 @@ public class Employee
     [Required]
     public int companyID { get; set; }
 
+    public Company Company { get; set; }
 }

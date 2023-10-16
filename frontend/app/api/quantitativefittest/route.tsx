@@ -13,6 +13,16 @@ export const quantitativefittestApi = {
       throw error;
     }
   },
+  getQuantById: async (quantitativeTestID: number) => {
+    console.log(quantitativeTestID)
+    try {
+      const response = await axios.get(`${apiBaseURL}/${quantitativeTestID}`);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
   deleteQuantitative: async (quantitativeTestID: number) => {
     try {
       const response = await axios.delete(`${apiBaseURL}/${quantitativeTestID}`);

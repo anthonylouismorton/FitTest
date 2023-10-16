@@ -1,16 +1,16 @@
 export interface Company {
-  companyID?: number;
-  name?: string;
-  address1?: string;
-  address2?: string;
-  address3?: string;
-  city?: string;
-  state?: string;
-  zipcode?: string;
-  email?: string;
-  altemail?: string;
-  phonenumber?: string;
-  phonenumberext?: string;
+  companyID?: number,
+  name?: string,
+  address1?: string,
+  address2?: string,
+  address3?: string,
+  city?: string,
+  state?: string,
+  zipcode?: string,
+  email?: string,
+  altemail?: string,
+  phonenumber?: string,
+  phonenumberext?: string,
   archived?: boolean
 }
 
@@ -22,14 +22,15 @@ export interface Employee {
   address1: string,
   address2: string,
   address3: string,
-  birthday: Date;
+  birthday: Date,
   ssn: string,
   city: string,
   state: string,
   zipcode: string,
   email: string,
-  phonenumber: string
-  companyID: number
+  phonenumber: string,
+  companyID?: number,
+  commany?: Company
 }
 
 export interface Respirator {
@@ -44,9 +45,8 @@ export interface Respirator {
 export interface QuantitativeFitTest {
   quantitativeTestID?: number,
   testpass?: boolean,
-  testdate: Date,
-  testtime: Date,
-  testexpiration: Date,
+  testdate?: Date,
+  testexpiration?: Date,
   fitfactor1: number,
   fitfactor2: number,
   fitfactor3: number,
@@ -59,7 +59,10 @@ export interface QuantitativeFitTest {
   employeeID: number | undefined,
   respiratorID: number | undefined,
   size?: string,
-  testtype?: string
+  testtype?: string,
+  employee?: Employee,
+  respirator?: Respirator,
+  company?: Company
 }
 
 export interface QualitativeFitTest{

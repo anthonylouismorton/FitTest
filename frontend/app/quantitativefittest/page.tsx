@@ -6,7 +6,7 @@ const QuantitativeFitTest = () => {
     <div className='p-2'>
       <button className='bg-blue-500 p-2 rounded text-white'>
         <Link href='/Quantitativefittest/Add'>
-          Add QuantitativeFitTest
+          Add Quantitative Fit Test
         </Link>
       </button>
       <QuantitativeFitTestCardContainer/>
