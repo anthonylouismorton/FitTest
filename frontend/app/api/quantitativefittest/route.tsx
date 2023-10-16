@@ -13,7 +13,24 @@ export const quantitativefittestApi = {
       throw error;
     }
   },
-
+  deleteQuantitative: async (quantitativeTestID: number) => {
+    try {
+      const response = await axios.delete(`${apiBaseURL}/${quantitativeTestID}`);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
+  updateQuantitativeFitTest: async (quantitativeTestID: number, updatedQuantitativeFitTest: QuantitativeFitTest) => {
+    try {
+      const response = await axios.put(`${apiBaseURL}/${quantitativeTestID}`, updatedQuantitativeFitTest);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
   createQuantitativeData: async (quantitativefittest: QuantitativeFitTest) => {
     try{
       const response = await axios.post(apiBaseURL, quantitativefittest);

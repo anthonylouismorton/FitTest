@@ -41,8 +41,9 @@ export interface Respirator {
   archived?: boolean
 }
 
-export interface QuantitativeFitTest{
-  testpass: boolean,
+export interface QuantitativeFitTest {
+  quantitativeTestID?: number,
+  testpass?: boolean,
   testdate: Date,
   testtime: Date,
   testexpiration: Date,
@@ -57,8 +58,8 @@ export interface QuantitativeFitTest{
   overallfitfactor: number,
   employeeID: number | undefined,
   respiratorID: number | undefined,
-  size: string,
-  testtype: string
+  size?: string,
+  testtype?: string
 }
 
 export interface QualitativeFitTest{
