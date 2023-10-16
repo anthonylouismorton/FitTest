@@ -9,16 +9,10 @@ public class QuantitativeRespiratorFitTest
     public bool testpass { get; set; }
 
     [Required]
-    [DataType(DataType.Date)]
-    public System.DateTime testdate { get; set; }
+    public DateTime testdate { get; set; }
 
     [Required]
-    [DataType(DataType.Time)]
-    public TimeSpan testtime { get; set; }
-
-    [Required]
-    [DataType(DataType.Date)]
-    public System.DateTime testexpiration { get; set; }
+    public DateTime testexpiration { get; set; }
 
     [MaxLength(255)]
     public string? testtype { get; set; }
@@ -61,6 +55,9 @@ public class QuantitativeRespiratorFitTest
     [Required]
     public int respiratorID { get; set; }
 
+    public Employee? Employee { get; set; }
+
+    public Respirator? Respirator { get; set; }
 }
 
 

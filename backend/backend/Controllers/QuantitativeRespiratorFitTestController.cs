@@ -23,22 +23,34 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<QuantitativeRespiratorFitTest>>> GetQuantitativeRespiratorFitTest()
         {
-          if (_context.QuantitativeRespiratorFitTest == null)
-          {
-              return NotFound();
-          }
-            return await _context.QuantitativeRespiratorFitTest.ToListAsync();
+            if (_context.QuantitativeRespiratorFitTest == null)
+            {
+                return NotFound();
+            }
+
+            var quantitativeFitTests = await _context.QuantitativeRespiratorFitTest
+                .Include(q => q.Employee)
+                .ThenInclude(e => e.Company)
+                .Include(q => q.Respirator)
+                .ToListAsync();
+
+            return quantitativeFitTests;
         }
 
         // GET: api/QuantitativeRespiratorFitTest/5
         [HttpGet("{id}")]
         public async Task<ActionResult<QuantitativeRespiratorFitTest>> GetQuantitativeRespiratorFitTest(int id)
         {
-          if (_context.QuantitativeRespiratorFitTest == null)
-          {
-              return NotFound();
-          }
-            var quantitativeRespiratorFitTest = await _context.QuantitativeRespiratorFitTest.FindAsync(id);
+            if (_context.QuantitativeRespiratorFitTest == null)
+            {
+                return NotFound();
+            }
+
+            var quantitativeRespiratorFitTest = await _context.QuantitativeRespiratorFitTest
+                .Include(q => q.Employee) // Eager load the Employee
+                .ThenInclude(e => e.Company) // Eager load the Company of the Employee
+                .Include(q => q.Respirator) // Eager load the Respirator
+                .FirstOrDefaultAsync(q => q.quantitativeTestID == id);
 
             if (quantitativeRespiratorFitTest == null)
             {

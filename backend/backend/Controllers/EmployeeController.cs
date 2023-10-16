@@ -27,7 +27,11 @@ namespace backend.Controllers
           {
               return NotFound();
           }
-            return await _context.Employee.ToListAsync();
+        var employees = await _context.Employee
+            .Include(q => q.Company)
+            .ToListAsync();
+
+        return employees;
         }
 
         // GET: api/Employee/5
