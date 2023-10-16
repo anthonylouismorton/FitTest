@@ -14,7 +14,7 @@ public class QuantitativeRespiratorFitTest
 
     [Required]
     [DataType(DataType.Time)]
-    public System.DateTime testtime { get; set; }
+    public TimeSpan testtime { get; set; }
 
     [Required]
     [DataType(DataType.Date)]

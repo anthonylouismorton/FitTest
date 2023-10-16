@@ -41,7 +41,13 @@ const QuantitativeFitTestCard: React.FC<{ quantitativefittest: QuantitativeFitTe
             </Link>
           </div>
         <div>
-          <button onClick={()=> (handleDelete(quantitativefittest?.quantitativeTestID))} className='text-blue-500 pl-2'>Archive</button>
+        <button onClick={() => {
+          if (quantitativefittest?.quantitativeTestID !== undefined) {
+            handleDelete(quantitativefittest.quantitativeTestID);
+          }
+        }} className='text-blue-500 pl-2'>
+          Archive
+        </button>
         </div>
         </div>
     </Card>

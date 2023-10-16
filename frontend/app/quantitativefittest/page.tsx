@@ -5,7 +5,7 @@ const QuantitativeFitTest = () => {
   return (
     <div className='p-2'>
       <button className='bg-blue-500 p-2 rounded text-white'>
-        <Link href='/QuantitativeFitTest/Add'>
+        <Link href='/Quantitativefittest/Add'>
           Add QuantitativeFitTest
         </Link>
       </button>
