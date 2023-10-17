@@ -3,14 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { qualitativefittestApi } from '../../api/qualitativefittest/route';
 import { respiratorApi } from '../../api/respirator/route';
 import { QualitativeFitTest, Employee, Respirator } from '../../interfaces';
-import { employeeApi } from '../../api/employee/route';
 import { useRouter } from 'next/navigation'
 
-const QualitativeFitTest = () => {
+const Edit = ({ params: { qualitativeTestID } } : { params: { qualitativeTestID: string } }) => {
   const router = useRouter();
-  const [selectedEmployee, setSelectedEmployee] = useState<string | undefined>(undefined);
   const [selectedRespirator, setSelectedRespirator] = useState<Respirator | undefined>(undefined);
-  const [employeeList, setEmployeeList] = useState<Employee[]>([]);
   const [respiratorList, setRespiratorList] = useState<Respirator[]>([]);
   const [validation, setValidation] = useState({
     exercise1: undefined,
@@ -19,13 +16,11 @@ const QualitativeFitTest = () => {
     exercise4: undefined,
     testpass: "",
   });
-  const initialDate = new Date();
-  const expirationDate = new Date(initialDate);
-  expirationDate.setFullYear(initialDate.getFullYear() + 1);
+
   const [fittest, setFittest] = useState<QualitativeFitTest>({
     testpass: false,
-    testdate: initialDate,
-    testexpiration: expirationDate,
+    testdate: undefined,
+    testexpiration: undefined,
     exercise1: undefined,
     exercise2: undefined,
     exercise3: undefined,
@@ -69,13 +64,6 @@ const QualitativeFitTest = () => {
     setFittest({...fittest, testtype: e.target.value });
   };
 
-  const handleEmployeeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
-    const selectedEmployee = JSON.parse(selectedValue);
-    setSelectedEmployee(selectedEmployee);
-    setFittest({ ...fittest, employeeID: selectedEmployee.employeeID });
-  };
-
   const handleRespiratorSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     const selectedRespirator = JSON.parse(selectedValue);
@@ -87,7 +75,7 @@ const QualitativeFitTest = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await qualitativefittestApi.createQualitativeData(fittest);
+      await qualitativefittestApi.updateQualitativeFitTest(Number(fittest.qualitativeTestID), fittest);
       console.log('Qualitative test created successfully');
       router.push('/Qualitativefittest')
     } 
@@ -97,15 +85,6 @@ const QualitativeFitTest = () => {
   };
 
   useEffect(()=> {
-    const getEmployeeList = async () => {
-      try{
-        var employeeList = await employeeApi.getEmployeeData();
-        setEmployeeList(employeeList)
-      }
-      catch(error){
-        console.error('Error fetching Employee data:', error)
-      }
-    }
     const getRespiratorList = async () => {
       try{
         var respiratorList = await respiratorApi.getRespiratorData();
@@ -115,8 +94,18 @@ const QualitativeFitTest = () => {
         console.error('Error fetching Respirator data:', error)
       }
     }
-    getEmployeeList();
-    getRespiratorList();
+    const getQualFitTest = async() => {
+      try{
+        var qualitativefittestInfo = await qualitativefittestApi.getQualitativeById(Number(qualitativeTestID))
+        console.log(qualitativefittestInfo)
+         setFittest(qualitativefittestInfo)
+         setSelectedRespirator(qualitativefittestInfo.respirator)
+      }catch(error){
+        console.error('Error fetching Quantitative Fit Test data:', error)
+      }
+     }
+     getQualFitTest();
+      getRespiratorList();
   },[])
 
   useEffect(()=> {
@@ -127,28 +116,12 @@ const QualitativeFitTest = () => {
       setFittest({...fittest, testpass: false})
     }
   },[fittest.exercise1, fittest.exercise2, fittest.exercise3, fittest.exercise4])
-  console.log(selectedRespirator)
+
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-4">New Qualitative Fit Test</h2>
+        <h2 className="text-2xl font-semibold mb-4">Edit Qualitative Fit Test</h2>
         <form onSubmit={handleSubmit}>
-        {employeeList.length > 0 &&
-         <div>
-          <label className="block text-sm font-medium text-gray-700">Select Employee</label>
-            <select
-            value={selectedEmployee ? JSON.stringify(selectedEmployee) : ""}
-              onChange={handleEmployeeSelect}
-            >
-              <option value=""></option>
-              {employeeList.map((employee) => (
-              <option key={employee.employeeID?.toString()} value={JSON.stringify(employee)}>
-                  {`${employee.firstname} ${employee.lastname}`}
-                </option>
-              ))}
-            </select>
-          </div>
-        }
         {respiratorList.length > 0 &&
          <div>
           <label className="block text-sm font-medium text-gray-700">Select Respirator</label>
@@ -221,7 +194,7 @@ const QualitativeFitTest = () => {
           </label>
           <input
             type="date"
-            value={fittest.testdate?.toISOString().split('T')[0]}
+            value={fittest.testdate ? new Date(fittest.testdate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
             name="testdate"
             onChange={handleDateChange}
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
@@ -234,7 +207,7 @@ const QualitativeFitTest = () => {
           </label>
           <input
             type="date"
-            value={fittest.testexpiration?.toISOString().split('T')[0]}
+            value={fittest.testexpiration ? new Date(fittest.testexpiration).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}
             name="testexpiration"
             onChange={handleDateChange}
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
@@ -330,7 +303,7 @@ const QualitativeFitTest = () => {
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
             >
-              Create Qualitative Fit Test
+              Update Qualitative Fit Test
             </button>
           </div>
         </form>
@@ -339,4 +312,4 @@ const QualitativeFitTest = () => {
   );
 };
 
-export default QualitativeFitTest;
+export default Edit;

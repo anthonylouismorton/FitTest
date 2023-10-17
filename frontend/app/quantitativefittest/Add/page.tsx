@@ -154,9 +154,8 @@ const QuantitativeFitTest = () => {
 
   },[fittest.fitfactor1, fittest.fitfactor2, fittest.fitfactor3, fittest.fitfactor4, fittest.fitfactor5, fittest.fitfactor6, fittest.fitfactor7, fittest.fitfactor8, selectedRespirator])
 
-  console.log(fittest)
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-semibold mb-4">New Quantitative Fit Test</h2>
         <form onSubmit={handleSubmit}>
