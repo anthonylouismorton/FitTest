@@ -41,11 +41,14 @@ namespace backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Company>> GetCompany(int id)
         {
-          if (_context.Company == null)
-          {
-              return NotFound();
-          }
-            var company = await _context.Company.FindAsync(id);
+            if (_context.Company == null)
+            {
+                return NotFound();
+            }
+            var company = await _context.Company
+            .Include(c => c.Employees)
+            .FirstOrDefaultAsync(c => c.companyID == id);
+
 
             if (company == null)
             {

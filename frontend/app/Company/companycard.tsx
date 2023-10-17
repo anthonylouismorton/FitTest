@@ -57,8 +57,13 @@ const CompanyCard: React.FC<{ company: Company, onArchive: (company: Company) =>
           {!company.archived ?
             <div className='flex justify-evenly'>
               <div>
-                <Link href={`/Company/${company.companyID}`} passHref>
+                <Link href={`/Company/Edit/${company.companyID}`} passHref>
                   <button className='text-blue-500 pl-2'>Edit</button>
+                </Link>
+              </div>
+              <div>
+                <Link href={`/Company/Info/${company.companyID}`} passHref>
+                  <button className='text-blue-500 pl-2'>More Info</button>
                 </Link>
               </div>
               <div>
