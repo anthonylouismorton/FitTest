@@ -23,22 +23,33 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<QualitativeRespiratorFitTest>>> GetQualitativeRespiratorFitTest()
         {
-          if (_context.QualitativeRespiratorFitTest == null)
-          {
-              return NotFound();
-          }
-            return await _context.QualitativeRespiratorFitTest.ToListAsync();
-        }
+            if (_context.QualitativeRespiratorFitTest == null)
+            {
+                return NotFound();
+            }
 
+            var qualitativeFitTests = await _context.QualitativeRespiratorFitTest
+                .Include(q => q.Employee)
+                .ThenInclude(e => e.Company)
+                .Include(q => q.Respirator)
+                .ToListAsync();
+    
+            return qualitativeFitTests;
+        }
         // GET: api/QualitativeRespiratorFitTest/5
         [HttpGet("{id}")]
         public async Task<ActionResult<QualitativeRespiratorFitTest>> GetQualitativeRespiratorFitTest(int id)
         {
-          if (_context.QualitativeRespiratorFitTest == null)
-          {
-              return NotFound();
-          }
-            var qualitativeRespiratorFitTest = await _context.QualitativeRespiratorFitTest.FindAsync(id);
+            if (_context.QualitativeRespiratorFitTest == null)
+            {
+                return NotFound();
+            }
+
+            var qualitativeRespiratorFitTest = await _context.QualitativeRespiratorFitTest
+                .Include(q => q.Employee)
+                .ThenInclude(e => e.Company)
+                .Include(q => q.Respirator)
+                .FirstOrDefaultAsync(q => q.qualitativeTestID == id);
 
             if (qualitativeRespiratorFitTest == null)
             {
