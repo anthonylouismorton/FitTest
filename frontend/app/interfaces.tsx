@@ -12,6 +12,7 @@ export interface Company {
   phonenumber?: string,
   phonenumberext?: string,
   archived?: boolean
+  employees?: Employee
 }
 
 export interface Employee {
@@ -30,7 +31,7 @@ export interface Employee {
   email: string,
   phonenumber: string,
   companyID?: number,
-  commany?: Company
+  company?: Company
 }
 
 export interface Respirator {

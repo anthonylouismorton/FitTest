@@ -1,9 +1,10 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { companyApi } from '../../api/company/route';
-import { Company } from '../../interfaces';
+import { companyApi } from '../../../api/company/route';
+import { Company } from '../../../interfaces';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+
 
 const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => 
     try {
       if(company.companyID){
         await companyApi.updateCompany(company.companyID, company);
-        router.push('/Company')
+        router.back();
         console.log('Company updated successfully');
       }
     } 
@@ -68,9 +69,9 @@ const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => 
             type="text"
             value={company.name}
             name="name"
-            onChange={handleChange}
             className="mt-1 p-2 block w-full rounded-md shadow"
             required
+            disabled
           />
         </div>
         <div className="mb-4">

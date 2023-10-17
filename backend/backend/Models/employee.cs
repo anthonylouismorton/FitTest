@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 public class Employee
 {
@@ -53,5 +54,6 @@ public class Employee
     [Required]
     public int companyID { get; set; }
 
+    [JsonIgnore]
     public Company? Company { get; set; }
 }
