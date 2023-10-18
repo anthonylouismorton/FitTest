@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 public class QualitativeRespiratorFitTest
 {
@@ -36,6 +37,7 @@ public class QualitativeRespiratorFitTest
     [Required]
     public int respiratorID { get; set; }
 
+    [JsonIgnore]
     public Employee? Employee { get; set; }
 
     public Respirator? Respirator { get; set; }

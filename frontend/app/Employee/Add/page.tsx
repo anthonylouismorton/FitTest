@@ -1,10 +1,10 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { employeeApi } from '../api/employee/route';
-import { companyApi } from '../api/company/route';
-import { Company } from '../interfaces';
+import { employeeApi } from '../../api/employee/route';
+import { companyApi } from '../../api/company/route';
+import { Company, Employee } from '../../interfaces';
 
-const AddEmployee = () => {
+const Add = () => {
 
   const [validation, setValidation] = useState({
     birthday: false,
@@ -15,14 +15,14 @@ const AddEmployee = () => {
     state: false,
     ssn: false
   });
-  const [employee, setEmployee] = useState({
+  const [employee, setEmployee] = useState<Employee>({
     firstname: "",
     middlename: "",
     lastname: "",
     address1: "",
     address2: "",
     address3: "",
-    birthday:"",
+    birthday:new Date(),
     ssn: "",
     city: "",
     state: "",
@@ -54,12 +54,12 @@ const AddEmployee = () => {
     const emailFormat = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     const stateAbbreviationFormat = /^[A-Z]{2}$/;
     const ssnFormat = /^\d{3}-\d{2}-\d{4}$/;
-    const checkDate = dateFormat.test(employee.birthday);
+    const checkDate = dateFormat.test(employee.birthday?.toISOString().split('T')[0]);
     const checkZip = zipCodeFormat.test(employee.zipcode);
     const checkPhone = phoneFormat.test(employee.phonenumber);
-    const checkEmail = emailFormat.test(employee.email)
-    const checkState = stateAbbreviationFormat.test(employee.state)
-    const checkSSN = ssnFormat.test(employee.ssn)
+    const checkEmail = emailFormat.test(employee.email);
+    const checkState = stateAbbreviationFormat.test(employee.state);
+    const checkSSN = ssnFormat.test(employee.ssn);
 
     setValidation((prevValidation) => ({
       ...prevValidation,
@@ -82,12 +82,12 @@ const AddEmployee = () => {
         address2: employee.address2,
         address3: employee.address3,
         birthday: new Date(employee.birthday),
-        ssn: employee.ssn.replaceAll("-",""),
+        ssn: employee.ssn?.replaceAll("-",""),
         city: employee.city,
         state: employee.state,
         zipcode: employee.zipcode,
         email: employee.email,
-        phonenumber: employee.phonenumber.replaceAll("-",""),
+        phonenumber: employee.phonenumber?.replaceAll("-",""),
         companyID: parseInt(selectedCompany)
       };
       console.log(formattedEmployee)
@@ -204,7 +204,7 @@ const AddEmployee = () => {
             <input
               type="text"
               placeholder='YYYY-MM-DD'
-              value={employee.birthday}
+              value={employee.birthday?.toISOString().split('T')[0]}
               name="birthday"
               onChange={handleChange}
               className="mt-1 p-2 block w-full rounded-md border-gray-300"
@@ -336,4 +336,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default Add;

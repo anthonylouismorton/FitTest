@@ -42,7 +42,11 @@ namespace backend.Controllers
           {
               return NotFound();
           }
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employee
+                       .Include(c => c.QualitativeRespiratorFitTests)
+                       .Include(q => q.QuantitativeRespiratorFitTests)
+                       .FirstOrDefaultAsync(c => c.employeeID == id);
+
 
             if (employee == null)
             {

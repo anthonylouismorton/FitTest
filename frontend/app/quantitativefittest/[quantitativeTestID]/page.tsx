@@ -141,7 +141,7 @@ const Edit = ({ params: { quantitativeTestID } } : { params: { quantitativeTestI
     }
 
   },[fittest.fitfactor1, fittest.fitfactor2, fittest.fitfactor3, fittest.fitfactor4, fittest.fitfactor5, fittest.fitfactor6, fittest.fitfactor7, fittest.fitfactor8, selectedRespirator])
-
+  console.log(fittest)
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
