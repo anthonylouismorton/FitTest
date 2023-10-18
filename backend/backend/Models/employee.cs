@@ -56,4 +56,8 @@ public class Employee
 
     [JsonIgnore]
     public Company? Company { get; set; }
+
+    public ICollection<QualitativeRespiratorFitTest> QualitativeRespiratorFitTests { get; set; }
+
+    public ICollection<QuantitativeRespiratorFitTest> QuantitativeRespiratorFitTests { get; set; }
 }

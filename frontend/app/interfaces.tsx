@@ -31,7 +31,9 @@ export interface Employee {
   email: string,
   phonenumber: string,
   companyID?: number,
-  company?: Company
+  company?: Company,
+  quantitativerespiratorfittests?: QuantitativeFitTest,
+  qualitativerespiratorfittests?: QualitativeFitTest
 }
 
 export interface Respirator {
