@@ -27,9 +27,6 @@ const Info = ({ params: { companyID } } : { params: { companyID: string } }) => 
        var companyInfo = await companyApi.getCompanyById(Number(companyID))
         setCompany(companyInfo)
       }
-      // const getCompanyEmployees = async() => {
-      //   var companyEmployees = await companyApi.
-      // }
       getCompany();
     }catch(error){
       console.log(error)

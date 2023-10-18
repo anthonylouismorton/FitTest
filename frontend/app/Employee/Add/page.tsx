@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { employeeApi } from '../../api/employee/route';
 import { companyApi } from '../../api/company/route';
 import { Company, Employee } from '../../interfaces';
-
+import { useRouter } from 'next/navigation';
 const Add = () => {
-
+  const router = useRouter();
   const [validation, setValidation] = useState({
     birthday: false,
     company: false,
@@ -22,13 +22,15 @@ const Add = () => {
     address1: "",
     address2: "",
     address3: "",
-    birthday:new Date(),
+    birthday: "",
     ssn: "",
     city: "",
     state: "",
     zipcode: "",
     email: "",
-    phonenumber: "", 
+    phonenumber: "",
+    qualitativeRespiratorFitTests: [],
+    quantitativeRespiratorFitTests: [],
   });
 
   const [selectedCompany, setSelectedCompany] = useState<string | undefined>(undefined);
@@ -54,7 +56,7 @@ const Add = () => {
     const emailFormat = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     const stateAbbreviationFormat = /^[A-Z]{2}$/;
     const ssnFormat = /^\d{3}-\d{2}-\d{4}$/;
-    const checkDate = dateFormat.test(employee.birthday?.toISOString().split('T')[0]);
+    const checkDate = dateFormat.test(new Date(employee.birthday).toISOString().split('T')[0]);
     const checkZip = zipCodeFormat.test(employee.zipcode);
     const checkPhone = phoneFormat.test(employee.phonenumber);
     const checkEmail = emailFormat.test(employee.email);
@@ -81,14 +83,16 @@ const Add = () => {
         address1: employee.address1,
         address2: employee.address2,
         address3: employee.address3,
-        birthday: new Date(employee.birthday),
+        birthday: employee.birthday?.toString().split('T')[0],
         ssn: employee.ssn?.replaceAll("-",""),
         city: employee.city,
         state: employee.state,
         zipcode: employee.zipcode,
         email: employee.email,
         phonenumber: employee.phonenumber?.replaceAll("-",""),
-        companyID: parseInt(selectedCompany)
+        companyID: parseInt(selectedCompany),
+        qualitativeRespiratorFitTests: [],
+        quantitativeRespiratorFitTests: []
       };
       console.log(formattedEmployee)
       try {
@@ -115,9 +119,9 @@ const Add = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-4">Create a New Employee</h2>
+        <h2 className="text-2xl font-semibold mb-4">Add New Employee</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
@@ -202,9 +206,9 @@ const Add = () => {
               Birthday
             </label>
             <input
-              type="text"
+              type="date"
               placeholder='YYYY-MM-DD'
-              value={employee.birthday?.toISOString().split('T')[0]}
+              value={employee.birthday?.toString().split('T')[0]}
               name="birthday"
               onChange={handleChange}
               className="mt-1 p-2 block w-full rounded-md border-gray-300"
@@ -327,7 +331,14 @@ const Add = () => {
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
             >
-              Create Employee
+              Add
+            </button>
+            <button
+              type="button"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              onClick={()=> router.back()}
+            >
+              Back
             </button>
           </div>
         </form>

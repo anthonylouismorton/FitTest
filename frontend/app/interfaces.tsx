@@ -23,7 +23,7 @@ export interface Employee {
   address1: string,
   address2: string,
   address3: string,
-  birthday: Date,
+  birthday: string,
   ssn: string,
   city: string,
   state: string,
@@ -32,8 +32,8 @@ export interface Employee {
   phonenumber: string,
   companyID?: number,
   company?: Company,
-  quantitativerespiratorfittests?: QuantitativeFitTest,
-  qualitativerespiratorfittests?: QualitativeFitTest
+  quantitativeRespiratorFitTests?: QuantitativeFitTest[],
+  qualitativeRespiratorFitTests?: QualitativeFitTest[]
 }
 
 export interface Respirator {
