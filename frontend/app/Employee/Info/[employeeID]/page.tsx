@@ -1,8 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { employeeApi } from '../../../api/employee/route';
-import { companyApi } from '../../../api/company/route';
-import { Company, Employee } from '../../../interfaces';
+import { Employee } from '../../../interfaces';
 import { useRouter } from 'next/navigation';
 
 const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) => {
@@ -14,13 +13,13 @@ const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) =
     address1: "",
     address2: "",
     address3: "",
-    birthday:new Date(),
+    birthday: "",
     ssn: "",
     city: "",
     state: "",
     zipcode: "",
     email: "",
-    phonenumber: "", 
+    phonenumber: "",
   });
   
   useEffect(() => {
@@ -33,9 +32,10 @@ const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) =
   }, []);
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full">
-        <h2 className="text-2xl font-semibold mb-4">{`${employee.firstname} ${employee.lastname} info`}</h2>
+    <div className="flex items-center justify-center w-full h-screen">
+      {employee.firstname &&
+      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+        <h2 className="text-2xl font-semibold mb-4">{`${employee.firstname} ${employee.lastname} Info`}</h2>
           <div className="mb-4 w-72">
             <div className='font-bold text-xl mb-1'>Name</div>
             <div>{`${employee.firstname} ${employee.middlename} ${employee.lastname}`}</div>
@@ -61,21 +61,24 @@ const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) =
             <div className='font-bold text-xl mb-1'>Phone Number</div>
             <div>{employee.phonenumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')}</div>
           </div>
-          <div>
+          <div className='flex justify-evenly'>
             <button
               type="button"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              onClick={()=> router.push(`/Employee/Edit/${employee.employeeID}`)}
             >
               Edit
             </button>
             <button
               type="button"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              onClick={()=> router.back()}
             >
               Back
             </button>
           </div>
       </div>
+      }
     </div>
   );
 };
