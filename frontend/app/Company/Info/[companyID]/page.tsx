@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { companyApi } from '../../../api/company/route';
 import CompanyDetails from './companyDetails';
-import { Company } from '../../../interfaces';
+import { Company, Employee } from '../../../interfaces';
 import CompanyEmployees from './companyEmployees';
 
 const Info = ({ params: { companyID } } : { params: { companyID: string } }) => {
-  var [company, setCompany] = useState<Company>({
+  const [company, setCompany] = useState<Company>({
     name: "",
     address1: "",
     address2: "",
@@ -20,7 +20,7 @@ const Info = ({ params: { companyID } } : { params: { companyID: string } }) => 
     phonenumberext: "", 
     employees: undefined
   });
-
+  
   useEffect(() => {
     try{
       const getCompany = async() => {
@@ -36,7 +36,7 @@ const Info = ({ params: { companyID } } : { params: { companyID: string } }) => 
   return (
     <div className="flex flex-col mt-4 px-2 items-center justify-center w-full">
       <CompanyDetails company={company}/>
-      <CompanyEmployees employees ={company.employees} companyID={company.companyID}/>
+      <CompanyEmployees company={company} companyID={company.companyID} />
     </div>
   );
 };

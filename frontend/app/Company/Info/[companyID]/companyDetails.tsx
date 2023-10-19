@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { Company } from '../../../interfaces';
 
-const CompanyDetails = ({company}) => {
+const CompanyDetails = ({ company } : {company: Company}) => {
 
   return (
     <div className="flex justify-center w-full">
@@ -51,7 +52,7 @@ const CompanyDetails = ({company}) => {
           </div>
           <div className="mb-4 w-72">
             <div className='font-bold text-xl mb-1'>Extension</div>
-            <div>{company.phonnumberext ? company.phonnumberext : "N/A"}</div>
+            <div>{company.phonenumberext ? company.phonenumberext : "N/A"}</div>
           </div>
         </div>
       </div>

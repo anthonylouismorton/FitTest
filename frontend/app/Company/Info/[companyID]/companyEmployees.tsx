@@ -1,8 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
+import { Employee, Company } from '../../../interfaces';
 
-const EmployeesTable = ({ employees, companyID }) => {
+const EmployeesTable = ({ company, companyID } : {company: Company, companyID?: number}) => {
   const router = useRouter();
+  const employees = (company.employees || []) as Employee[];
   return (
     <div className="flex flex-col mt-4 w-full">
       <div className="flex w-full items-center justify-center">
