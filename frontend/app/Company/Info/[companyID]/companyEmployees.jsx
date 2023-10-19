@@ -1,11 +1,19 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
 
-const EmployeesTable = ({ employees }) => {
+const EmployeesTable = ({ employees, companyID }) => {
   const router = useRouter();
   return (
     <div className="flex flex-col mt-4 w-full">
-      <h1 className="w-full font-bold text-2xl text-center">Employees</h1>
+      <div className="flex w-full items-center justify-center">
+          <h1 className="font-bold text-2xl text-center mr-2">Employees</h1>
+          <button className='text-blue-500' 
+            onClick={()=> {router.push(`/Employee/Add/${companyID}`)}}
+            title="Click to add an employee"
+            >
+              Add
+          </button>
+        </div>
       <table className='w-full mt-4 shadow'>
         <thead className="border-b font-medium dark:border-neutral-500">
           <tr>

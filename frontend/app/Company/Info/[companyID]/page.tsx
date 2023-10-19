@@ -36,7 +36,7 @@ const Info = ({ params: { companyID } } : { params: { companyID: string } }) => 
   return (
     <div className="flex flex-col mt-4 px-2 items-center justify-center w-full">
       <CompanyDetails company={company}/>
-      <CompanyEmployees employees ={company.employees}/>
+      <CompanyEmployees employees ={company.employees} companyID={company.companyID}/>
     </div>
   );
 };
