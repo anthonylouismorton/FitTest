@@ -1,10 +1,10 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { employeeApi } from '../../api/employee/route';
-import { companyApi } from '../../api/company/route';
-import { Company, Employee } from '../../interfaces';
+import { employeeApi } from '../../../api/employee/route';
+import { companyApi } from '../../../api/company/route';
+import { Company, Employee } from '../../../interfaces';
 import { useRouter } from 'next/navigation';
-const Add = () => {
+const Add = ({ params: { companyID } } : { params: { companyID: string } }) => {
   const router = useRouter();
   const [validation, setValidation] = useState({
     birthday: false,
@@ -33,8 +33,8 @@ const Add = () => {
     quantitativeRespiratorFitTests: [],
   });
 
-  const [selectedCompany, setSelectedCompany] = useState<string | undefined>(undefined);
-  const [companyList, setCompanyList] = useState<Company[]>([]);
+  const [selectedCompany, setSelectedCompany] = useState<string | undefined>(companyID);
+  // const [companyList, setCompanyList] = useState<Company[]>([]);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +74,7 @@ const Add = () => {
       ssn: !checkSSN
     }));
 
-    if(selectedCompany && checkDate && checkZip && checkPhone && checkEmail && checkState && checkSSN){
+    if(checkDate && checkZip && checkPhone && checkEmail && checkState && checkSSN){
       const formattedEmployee = {
         employeeID: undefined,
         firstname: employee.firstname,
@@ -90,14 +90,14 @@ const Add = () => {
         zipcode: employee.zipcode,
         email: employee.email,
         phonenumber: employee.phonenumber?.replaceAll("-",""),
-        companyID: parseInt(selectedCompany),
+        companyID: Number(companyID),
         qualitativeRespiratorFitTests: [],
         quantitativeRespiratorFitTests: []
       };
-      console.log(formattedEmployee)
       try {
         await employeeApi.createEmployeeData(formattedEmployee);
         console.log('Employee data created successfully');
+        router.back();
       } 
       catch (error) {
         console.error('Error creating employee data:', error);
@@ -105,23 +105,23 @@ const Add = () => {
     }
   };
   
-  useEffect(() => {
-    const getCompanyList = async () => {
-      try{
-        var companyList = await companyApi.getCompanyData();
-        setCompanyList(companyList)
-      }
-      catch(error){
-        console.error('Error feteching company data:', error)
-      }
-    }
-    getCompanyList()
-  }, []);
+  // useEffect(() => {
+  //   const getCompanyList = async () => {
+  //     try{
+  //       var companyList = await companyApi.getCompanyData();
+  //       setCompanyList(companyList)
+  //     }
+  //     catch(error){
+  //       console.error('Error feteching company data:', error)
+  //     }
+  //   }
+  //   getCompanyList()
+  // }, []);
 
   return (
     <div className="flex items-center justify-center w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-4">Add New Employee</h2>
+        <h2 className="text-2xl font-semibold mb-4 w-full text-center">Add New Employee</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
@@ -306,7 +306,7 @@ const Add = () => {
               className="mt-1 p-2 block w-full rounded-md border-gray-300"
             />
           </div>
-        {companyList.length > 0 &&
+        {/* {companyList.length > 0 &&
          <div>
           {validation.company && (
             <p className="text-red-500 text-xs mt-1">You must select a company</p>
@@ -325,8 +325,8 @@ const Add = () => {
               ))}
             </select>
           </div>
-        }
-          <div>
+        } */}
+          <div className='flex justify-evenly'>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
