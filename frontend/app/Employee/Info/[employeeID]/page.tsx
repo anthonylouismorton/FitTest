@@ -1,11 +1,14 @@
 "use client"
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { employeeApi } from '../../../api/employee/route';
-import { Employee } from '../../../interfaces';
-import { useRouter } from 'next/navigation';
-
+import { Employee, QuantitativeFitTest } from '../../../interfaces';
+import EmployeeDetails from './employeeDetails';
+import EmployeeQuantFitTests from './employeeQuantFitTests';
+import EmployeeQualFitTests from './employeeQualtFitTests';
+import QuantitativeFitTestModal from './SelectedQuantFitTest';
 const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) => {
-  const router = useRouter();
+  const [quantOpen, setQuantOpen] = useState<boolean>(false);
+  const [selectedQuantitativeFitTest, setSelectedQuantitativeFitTest] = useState<number | undefined>(undefined);
   const [employee, setEmployee] = useState<Employee>({
     firstname: "",
     middlename: "",
@@ -21,64 +24,24 @@ const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) =
     email: "",
     phonenumber: "",
   });
-  
+  const handleOpen = () => setQuantOpen(true);
+  const handleClose = () => setQuantOpen(false);
   useEffect(() => {
     const getEmployee = async () => {
       var employee = await employeeApi.getEmployeeById(Number(employeeID))
+      console.log(employee)
       setEmployee(employee)
     }
     getEmployee();
 
   }, []);
-
+  console.log(selectedQuantitativeFitTest)
   return (
-    <div className="flex items-center justify-center w-full h-screen">
-      {employee.firstname &&
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-4">{`${employee.firstname} ${employee.lastname} Info`}</h2>
-          <div className="mb-4 w-72">
-            <div className='font-bold text-xl mb-1'>Name</div>
-            <div>{`${employee.firstname} ${employee.middlename} ${employee.lastname}`}</div>
-          </div>
-          <div className="mb-4 w-72">
-            <div className='font-bold text-xl mb-1'>Address</div>
-            <div>{`${employee.address1} ${employee.address2} ${employee.address3}`}</div>
-            <div>{`${employee.city}, ${employee.state} ${employee.zipcode}`}</div>
-          </div>
-          <div className="mb-4 w-72">
-            <div className='font-bold text-xl mb-1'>Birthday</div>
-            <div>{employee.birthday ? new Date(employee.birthday).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}</div>
-          </div>
-          <div className="mb-4 w-72">
-            <div className='font-bold text-xl mb-1'>SSN</div>
-            <div>{`XXX-XX-${employee.ssn.slice(-4)}`}</div>
-          </div>
-          <div className="mb-4 w-72">
-            <div className='font-bold text-xl mb-1'>Email</div>
-            <div>{employee.email}</div>
-          </div>
-          <div className="mb-4 w-72">
-            <div className='font-bold text-xl mb-1'>Phone Number</div>
-            <div>{employee.phonenumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')}</div>
-          </div>
-          <div className='flex justify-evenly'>
-            <button
-              type="button"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
-              onClick={()=> router.push(`/Employee/Edit/${employee.employeeID}`)}
-            >
-              Edit
-            </button>
-            <button
-              type="button"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
-              onClick={()=> router.back()}
-            >
-              Back
-            </button>
-          </div>
-      </div>
-      }
+    <div className="flex flex-col mt-4 px-2 items-center justify-center w-full">
+      <QuantitativeFitTestModal fitTestID={selectedQuantitativeFitTest} open={quantOpen} setOpen={setQuantOpen} employee={employee} />
+      <EmployeeDetails employee={employee}/>
+      <EmployeeQuantFitTests setSelectedQuantitativeFitTest={setSelectedQuantitativeFitTest} employee={employee} setQuantOpen={setQuantOpen}/>
+      <EmployeeQualFitTests employee={employee}/>
     </div>
   );
 };

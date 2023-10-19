@@ -44,7 +44,9 @@ namespace backend.Controllers
           }
             var employee = await _context.Employee
                        .Include(c => c.QualitativeRespiratorFitTests)
+                       .ThenInclude(e => e.Respirator)
                        .Include(q => q.QuantitativeRespiratorFitTests)
+                       .ThenInclude(e => e.Respirator)
                        .FirstOrDefaultAsync(c => c.employeeID == id);
 
 

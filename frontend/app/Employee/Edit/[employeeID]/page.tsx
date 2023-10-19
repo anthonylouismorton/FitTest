@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { employeeApi } from '../../../api/employee/route';
-import { Employee, QuantitativeFitTest, QualitativeFitTest } from '../../../interfaces';
+import { Employee } from '../../../interfaces';
 import { useRouter } from 'next/navigation';
 
 const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) => {
