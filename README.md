@@ -27,6 +27,3 @@ This project is a fit test database where users can store respirator fit tests f
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-
-[linkedin-shieldanthony]: https://img.shields.io/badge/AnthonyMorton-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-urlanthony]: https://www.linkedin.com/in/anthony-louis-morton/
