@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Database Diagram](#database-diagram)
 - [Database Schema](#database-schema)
+- [Technologies Used](#technologies-used)
 - [Contact](#contact)
 
 ## Description
@@ -87,7 +88,7 @@ This project is a fit test database where users can store respirator fit tests f
 
 ## Technologies Used
 
-- **Frontend Framework and Language:** TypeScript, Next.js, and Tailwind CSS
+- **Frontend Framework and Language:** TypeScript, Next.js, Material UI, and Tailwind CSS
 - **Backend Framework and Language:** C# and ASP.NET Core Web API
 - **Database Management System (DBMS):** SQL (Structured Query Language)
 - **Database Software:** Microsoft SQL Server
