@@ -75,7 +75,6 @@ const QuantitativeFitTest = () => {
     const selectedValue = e.target.value;
     const selectedEmployee = JSON.parse(selectedValue);
     setSelectedEmployee(selectedEmployee);
-    console.log(selectedEmployee)
     setFittest({ ...fittest, employeeID: selectedEmployee.employeeID });
   };
 
@@ -91,7 +90,7 @@ const QuantitativeFitTest = () => {
     try {
       await quantitativefittestApi.createQuantitativeData(fittest);
       console.log('Quantitative test created successfully');
-      router.push('/Quantitativefittest')
+      router.back();
     } 
     catch (error) {
       console.error('Error creating fittest data:', error);
@@ -377,12 +376,19 @@ const QuantitativeFitTest = () => {
             <option value="large">Large</option>
           </select>
         </div>
-          <div>
+        <div className='flex justify-between'>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
             >
-              Create Quantitative Fit Test
+              Create
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              onClick={() => router.back()}
+            >
+              Cancel
             </button>
           </div>
         </form>

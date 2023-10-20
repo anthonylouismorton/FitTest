@@ -16,7 +16,6 @@ const QualitativeFitTestCard: React.FC<{ qualitativefittest: QualitativeFitTest,
       console.error("Error deleting Qualitative Fit Test:", error);
     }
   }
-  console.log(qualitativefittest.qualitativeTestID)
   return (
     <Card sx={{ width: 275, height: 300 }}>
       {!showDelete ? (

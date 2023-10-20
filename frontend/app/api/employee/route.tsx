@@ -32,7 +32,7 @@ export const employeeApi = {
     }
   },
   createEmployeeData: async (employeeData: Employee) => {
-    console.log(employeeData)
+
     try{
       const response = await axios.post(apiBaseURL, employeeData);
       return response.data;

@@ -14,7 +14,7 @@ export const qualitativefittestApi = {
     }
   },
   getQualitativeById: async (qualitativeTestID: number) => {
-    console.log(qualitativeTestID)
+
     try {
       const response = await axios.get(`${apiBaseURL}/${qualitativeTestID}`);
       return response.data

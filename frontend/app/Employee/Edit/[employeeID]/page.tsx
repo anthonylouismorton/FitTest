@@ -86,7 +86,6 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
         qualitativeRespiratorFitTests: [],
         quantitativeRespiratorFitTests: []
       };
-      console.log(employeeID, formattedEmployee)
       try {
         await employeeApi.updateEmployee(Number(employeeID), formattedEmployee);
         console.log('Employee data updated successfully');
@@ -101,12 +100,11 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
   useEffect(() => {
     const getEmployee = async () => {
       var employeeInfo = await employeeApi.getEmployeeById(Number(employeeID))
-      console.log(employeeInfo)
       setEmployee({...employeeInfo, phonenumber: employeeInfo.phonenumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'),  ssn: `${employeeInfo.ssn.slice(0,3)}-${employeeInfo.ssn.slice(4,6)}-${employeeInfo.ssn.slice(-4)}`})
     }
     getEmployee();
   }, []);
-  console.log(employee)
+
   return (
     <div className="flex items-center justify-center w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">

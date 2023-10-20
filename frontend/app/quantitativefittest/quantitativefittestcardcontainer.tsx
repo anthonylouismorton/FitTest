@@ -16,7 +16,6 @@ export default function QuantitativefittestCardContainer() {
     const getQuantitativefittestList = async () => {
       try{
         var quantitativefittestList = await quantitativefittestApi.getQuantitative();
-        console.log(quantitativefittestList)
         setQuantitativefittestList(quantitativefittestList)
       }
       catch(error){
@@ -25,7 +24,6 @@ export default function QuantitativefittestCardContainer() {
     }
     getQuantitativefittestList();
   }, [])
-  console.log(quantitativefittestList)
   return(
     <div>
       <div className="pt-2 flex flex-wrap space-x-4 space-y-4 items-end">
