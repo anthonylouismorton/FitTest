@@ -23,6 +23,7 @@ This project is a fit test database where users can store respirator fit tests f
 
 ## Contact
 Email: anthonymorton760@gmail.com
+
 [![LinkedIn][linkedin-shieldanthony]][linkedin-urlanthony]
 [![GitHub][github-shieldanthony]][github-urlanthony]
 
