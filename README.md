@@ -4,11 +4,17 @@
 
 - [Project Title](#project-title)
 - [Description](#description)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
+- [Database Diagram](#database-diagram)  <-- Added this line
+- [Database Schema](#database-schema)  <-- Added this line
+
+## Database Diagram
+
+![Database Diagram](./databaseDiagram.png)
+
+## Database Schema
+
+<!-- Your Database Schema content goes here -->
+
 
 ## Description
 
