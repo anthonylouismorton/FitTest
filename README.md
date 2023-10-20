@@ -84,8 +84,14 @@ This project is a fit test database where users can store respirator fit tests f
 - The `Employee` table has a one-to-many relationship with the `QualitativeRespiratorFitTest` table. Each employee can have multiple qualitative respirator fit tests.
 - The `Employee` table has a one-to-many relationship with the `QuantitativeRespiratorFitTest` table. Each employee can have multiple quantitative respirator fit tests.
 - The `Respirator` table has a one-to-many relationship with both the `QuantitativeRespiratorFitTest` and `QualitativeRespiratorFitTest` tables. Each respirator can be assigned to multiple fit tests.
+
+## Technologies Used
+
+- **Frontend Framework and Language:** TypeScript, Next.js, and Tailwind CSS
+- **Backend Framework and Language:** C# and ASP.NET Core Web API
+- **Database Management System (DBMS):** SQL (Structured Query Language)
+- **Database Software:** Microsoft SQL Server
   
 ## Contact
 Email: anthonymorton760@gmail.com
 LinkedIn: https://www.linkedin.com/in/anthony-louis-morton/
-
