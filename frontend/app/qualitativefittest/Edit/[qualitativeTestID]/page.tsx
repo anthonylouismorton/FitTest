@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { qualitativefittestApi } from '../../api/qualitativefittest/route';
-import { respiratorApi } from '../../api/respirator/route';
-import { QualitativeFitTest, Employee, Respirator } from '../../interfaces';
+import { qualitativefittestApi } from '../../../api/qualitativefittest/route';
+import { respiratorApi } from '../../../api/respirator/route';
+import { QualitativeFitTest, Employee, Respirator } from '../../../interfaces';
 import { useRouter } from 'next/navigation'
 
 const Edit = ({ params: { qualitativeTestID } } : { params: { qualitativeTestID: string } }) => {
@@ -77,7 +77,7 @@ const Edit = ({ params: { qualitativeTestID } } : { params: { qualitativeTestID:
     try {
       await qualitativefittestApi.updateQualitativeFitTest(Number(fittest.qualitativeTestID), fittest);
       console.log('Qualitative test created successfully');
-      router.push('/Qualitativefittest')
+      router.back();
     } 
     catch (error) {
       console.error('Error creating fittest data:', error);
@@ -148,10 +148,10 @@ const Edit = ({ params: { qualitativeTestID } } : { params: { qualitativeTestID:
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
             required
           >
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-            <option value="regular">Regular</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+            <option value="Regular">Regular</option>
           </select>
         </div>
         <div className="mb-4">
@@ -297,12 +297,19 @@ const Edit = ({ params: { qualitativeTestID } } : { params: { qualitativeTestID:
             required
           />
         </div>
-          <div>
+          <div className='flex justify-between'>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
             >
-              Update Qualitative Fit Test
+              Edit
+            </button>
+            <button
+              type="button"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              onClick={() => {router.back()}}
+            >
+                Cancel
             </button>
           </div>
         </form>

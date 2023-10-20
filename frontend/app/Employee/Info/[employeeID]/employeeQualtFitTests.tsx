@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
 import { Employee } from '../../../interfaces';
-const QualitativeFitTestTable = ({ employee } : { employee: Employee}) => {
+const QualitativeFitTestTable = ({ employee, setShowQualFitTest, setSelectedQualitativeFitTest } : { employee: Employee; setShowQualFitTest: React.Dispatch<React.SetStateAction<boolean>>; setSelectedQualitativeFitTest: React.Dispatch<React.SetStateAction<number | undefined>> }) => {
   const router = useRouter();
   
   return (
@@ -32,7 +32,10 @@ const QualitativeFitTestTable = ({ employee } : { employee: Employee}) => {
              key={qualfittest.qualitativeTestID}
              className={index % 2 === 0 ? "border-b dark:border-neutral-500 bg-gray-300 cursor-pointer hover:bg-gray-400" : "border-b dark:border-neutral-500 bg-gray-100 cursor-pointer hover:bg-gray-400"}
              title="Click for more info"
-             onClick={()=> router.push(`/Qualitativefittest/Info/${qualfittest.qualitativeTestID}`)} 
+             onClick={() => {
+              setShowQualFitTest(true);
+              setSelectedQualitativeFitTest(qualfittest?.qualitativeTestID ?? undefined);
+            }}
              >
               <td className="whitespace-nowrap px-6 py-4 text-center">{qualfittest.testtype}</td>
               <td className="whitespace-nowrap px-6 py-4 text-center">{qualfittest.testpass ? "Yes" : "No"}</td>

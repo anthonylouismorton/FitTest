@@ -371,9 +371,9 @@ const QuantitativeFitTest = () => {
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
             required
           >
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
           </select>
         </div>
         <div className='flex justify-between'>
