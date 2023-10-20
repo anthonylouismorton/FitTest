@@ -2,7 +2,6 @@
 
 ## Table of Contents
 
-- [Fit Test](#project-title)
 - [Description](#description)
 - [Database Diagram](#database-diagram)  <-- Added this line
 - [Database Schema](#database-schema)  <-- Added this line
