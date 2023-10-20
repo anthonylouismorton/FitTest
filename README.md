@@ -3,8 +3,9 @@
 ## Table of Contents
 
 - [Description](#description)
-- [Database Diagram](#database-diagram)  <-- Added this line
-- [Database Schema](#database-schema)  <-- Added this line
+- [Database Diagram](#database-diagram)
+- [Database Schema](#database-schema)
+- [Contact](#contact)
 
 ## Description
 
