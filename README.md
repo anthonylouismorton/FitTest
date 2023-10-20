@@ -24,6 +24,7 @@ This project is a fit test database where users can store respirator fit tests f
 ## Contact
 [![LinkedIn][linkedin-shieldanthony]][linkedin-urlanthony]
 [![GitHub][github-shieldanthony]][github-urlanthony]
+Email: anthonymorton760@gmail.com
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
