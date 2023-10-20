@@ -1,63 +1,32 @@
 # Fit Test Database
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
+## Table of Contents
+
+- [Project Title](#project-title)
+- [Description](#description)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ## Description
 
-A brief overview of what your project is about. Explain its purpose and why it exists.
+This project is a fit test database where users can store respirator fit tests for multiple companies and their employees. Users are able to add respirator makes and models and create quantitative or qualitative fit tests for indiviudal employees. This allows the users to identify the types of respirators an employee is allowed to wear and what protocols were used for each test. This database is great for companies that provide respiratory protection testing services. This can also be adapated to individual companies with different sections who need to track personnel respiratory fit tests for OSHA compliant reasons.
 
-## Features
+## Description
 
-Highlight the key features or functionalities of your project.
+This project is a fit test database where users can store respirator fit tests for multiple companies and their employees. Users are able to add respirator makes and models and create quantitative or qualitative fit tests for indiviudal employees. This allows the users to identify the types of respirators an employee is allowed to wear and what protocols were used for each test. This database is great for companies that provide respiratory protection testing services. This can also be adapated to individual companies with different sections who need to track personnel respiratory fit tests for OSHA compliant reasons.
 
-## Getting Started
+## Contact
+[![LinkedIn][linkedin-shieldanthony]][linkedin-urlanthony]
+[![GitHub][github-shieldanthony]][github-urlanthony]
 
-Explain how to get a copy of your project up and running on a user's local machine.
+<!-- MARKDOWN LINKS & IMAGES -->
 
-### Prerequisites
 
-List any software, tools, or dependencies that users need to install or have before using your project.
-
-### Installation
-
-Provide step-by-step instructions on how to install your project. Include code snippets if necessary.
-
-## Usage
-
-Explain how to use your project once it's installed. Provide examples or code snippets to help users understand its usage.
-
-## Contributing
-
-Encourage others to contribute to your project. Provide guidelines for how they can contribute, whether it's through bug reports, feature requests, or code contributions.
-
-## License
-
-Specify the license under which your project is distributed. This is important for clarifying how others can use and share your code.
-
-## Acknowledgments
-
-Give credit to any individuals, libraries, or resources that have helped or inspired your project.
+[linkedin-shieldanthony]: https://img.shields.io/badge/AnthonyMorton-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-urlanthony]: https://www.linkedin.com/in/anthony-louis-morton/
