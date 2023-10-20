@@ -6,15 +6,6 @@
 - [Database Diagram](#database-diagram)  <-- Added this line
 - [Database Schema](#database-schema)  <-- Added this line
 
-## Database Diagram
-
-![Database Diagram](./databaseDiagram.png)
-
-## Database Schema
-
-<!-- Your Database Schema content goes here -->
-
-
 ## Description
 
 This project is a fit test database where users can store respirator fit tests for multiple companies and their employees. Users are able to add respirator makes and models and create quantitative or qualitative fit tests for indiviudal employees. This allows the users to identify the types of respirators an employee is allowed to wear and what protocols were used for each test. This database is great for companies that provide respiratory protection testing services. This can also be adapated to individual companies with different sections who need to track personnel respiratory fit tests for OSHA compliant reasons.
