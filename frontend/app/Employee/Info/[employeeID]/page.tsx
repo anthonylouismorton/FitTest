@@ -6,12 +6,15 @@ import EmployeeDetails from './employeeDetails';
 import EmployeeQuantFitTests from './employeeQuantFitTests';
 import EmployeeQualFitTests from './employeeQualtFitTests';
 import SelectedQuantFitTest from './SelectedQuantFitTest';
+import SelectedQualFItTest from './SelectedQualFitTest';
 import { useRouter } from 'next/navigation';
 
 const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) => {
   const router = useRouter();
   const [showQuantFitTest, setShowQuantFitTest] = useState<boolean>(false);
+  const [showQualFitTest, setShowQualFitTest] = useState<boolean>(false);
   const [selectedQuantitativeFitTest, setSelectedQuantitativeFitTest] = useState<number | undefined>(undefined);
+  const [selectedQualitativeFitTest, setSelectedQualitativeFitTest] = useState<number | undefined>(undefined);
   const [employee, setEmployee] = useState<Employee>({
     firstname: "",
     middlename: "",
@@ -44,14 +47,17 @@ const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) =
       </button>
       <div className="flex flex-col mt-4 px-2 items-center justify-center w-full">
         <EmployeeDetails employee={employee}/>
-        {!showQuantFitTest &&
+        {!showQuantFitTest && !showQualFitTest && (
           <div className='w-full'>
             <EmployeeQuantFitTests setSelectedQuantitativeFitTest={setSelectedQuantitativeFitTest} employee={employee} setShowQuantFitTest={setShowQuantFitTest}/>
-            <EmployeeQualFitTests employee={employee}/>
+            <EmployeeQualFitTests employee={employee} setSelectedQualitativeFitTest={setSelectedQualitativeFitTest} setShowQualFitTest={setShowQualFitTest}/>
           </div>
-        }
+        )}
         {showQuantFitTest &&
           <SelectedQuantFitTest fitTestID={selectedQuantitativeFitTest} setShowQuantFitTest={setShowQuantFitTest} employee={employee} />
+        }
+        {showQualFitTest &&
+          <SelectedQualFItTest fitTestID={selectedQualitativeFitTest} setShowQualFitTest={setShowQualFitTest} employee={employee} />
         }
       </div>
     </div>
