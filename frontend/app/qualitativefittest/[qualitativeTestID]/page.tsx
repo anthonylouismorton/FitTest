@@ -97,7 +97,6 @@ const Edit = ({ params: { qualitativeTestID } } : { params: { qualitativeTestID:
     const getQualFitTest = async() => {
       try{
         var qualitativefittestInfo = await qualitativefittestApi.getQualitativeById(Number(qualitativeTestID))
-        console.log(qualitativefittestInfo)
          setFittest(qualitativefittestInfo)
          setSelectedRespirator(qualitativefittestInfo.respirator)
       }catch(error){

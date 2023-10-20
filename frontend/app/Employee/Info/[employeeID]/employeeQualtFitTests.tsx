@@ -9,7 +9,7 @@ const QualitativeFitTestTable = ({ employee } : { employee: Employee}) => {
       <div className="flex w-full items-center justify-center">
           <h1 className="font-bold text-2xl text-center mr-2">Qualitative Fit Tests</h1>
           <button className='text-blue-500' 
-            onClick={()=> {router.push(`/Qualitativefittest/add`)}}
+            onClick={()=> {router.push(`/Qualitativefittest/Add`)}}
             title="Click to add new Qualitative Fit Test"
             >
               Add

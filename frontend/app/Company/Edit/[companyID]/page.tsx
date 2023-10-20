@@ -54,7 +54,7 @@ const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => 
       console.log(error)
     }
   }, [])
-  console.log(company)
+  
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       {company.companyID &&

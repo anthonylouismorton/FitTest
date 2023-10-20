@@ -65,7 +65,6 @@ const Edit = ({ params: { respiratorID } } : { params: { respiratorID: string } 
       console.log(error)
     }
   }, [])
-  console.log(respirator)
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       {respirator.respiratorID &&

@@ -32,7 +32,7 @@ const Info = ({ params: { companyID } } : { params: { companyID: string } }) => 
       console.log(error)
     }
   }, [])
-  console.log(company)
+
   return (
     <div className="flex flex-col mt-4 px-2 items-center justify-center w-full">
       <CompanyDetails company={company}/>

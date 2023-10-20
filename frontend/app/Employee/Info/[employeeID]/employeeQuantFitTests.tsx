@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Employee } from '@/app/interfaces';
 
-const QuantitativeFitTestTable = ({ employee, setQuantOpen, setSelectedQuantitativeFitTest } : { employee: Employee; setQuantOpen: React.Dispatch<React.SetStateAction<boolean>>; setSelectedQuantitativeFitTest: React.Dispatch<React.SetStateAction<number | undefined>> }) => {
+const QuantitativeFitTestTable = ({ employee, setShowQuantFitTest, setSelectedQuantitativeFitTest } : { employee: Employee; setShowQuantFitTest: React.Dispatch<React.SetStateAction<boolean>>; setSelectedQuantitativeFitTest: React.Dispatch<React.SetStateAction<number | undefined>> }) => {
   const router = useRouter();
   console.log(employee)
   return (
@@ -10,7 +10,7 @@ const QuantitativeFitTestTable = ({ employee, setQuantOpen, setSelectedQuantitat
       <div className="flex w-full items-center justify-center">
           <h1 className="font-bold text-2xl text-center mr-2">Quantitative Fit Tests</h1>
           <button className='text-blue-500' 
-            onClick={()=> {router.push(`/Quantitativefittest/add`)}}
+            onClick={()=> {router.push(`/Quantitativefittest/Add`)}}
             title="Click to add new Quantitative Fit Test"
             >
               Add
@@ -34,7 +34,7 @@ const QuantitativeFitTestTable = ({ employee, setQuantOpen, setSelectedQuantitat
              className={index % 2 === 0 ? "border-b dark:border-neutral-500 bg-gray-300 cursor-pointer hover:bg-gray-400" : "border-b dark:border-neutral-500 bg-gray-100 cursor-pointer hover:bg-gray-400"}
              title="Click for more info"
              onClick={() => {
-              setQuantOpen(true);
+              setShowQuantFitTest(true);
               setSelectedQuantitativeFitTest(quantfittest?.quantitativeTestID ?? undefined);
             }}
              >

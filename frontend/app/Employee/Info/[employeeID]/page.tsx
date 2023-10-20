@@ -1,13 +1,16 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { employeeApi } from '../../../api/employee/route';
-import { Employee, QuantitativeFitTest } from '../../../interfaces';
+import { Employee } from '../../../interfaces';
 import EmployeeDetails from './employeeDetails';
 import EmployeeQuantFitTests from './employeeQuantFitTests';
 import EmployeeQualFitTests from './employeeQualtFitTests';
-import QuantitativeFitTestModal from './SelectedQuantFitTest';
+import SelectedQuantFitTest from './SelectedQuantFitTest';
+import { useRouter } from 'next/navigation';
+
 const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) => {
-  const [quantOpen, setQuantOpen] = useState<boolean>(false);
+  const router = useRouter();
+  const [showQuantFitTest, setShowQuantFitTest] = useState<boolean>(false);
   const [selectedQuantitativeFitTest, setSelectedQuantitativeFitTest] = useState<number | undefined>(undefined);
   const [employee, setEmployee] = useState<Employee>({
     firstname: "",
@@ -24,24 +27,33 @@ const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) =
     email: "",
     phonenumber: "",
   });
-  const handleOpen = () => setQuantOpen(true);
-  const handleClose = () => setQuantOpen(false);
+
   useEffect(() => {
     const getEmployee = async () => {
       var employee = await employeeApi.getEmployeeById(Number(employeeID))
-      console.log(employee)
       setEmployee(employee)
     }
     getEmployee();
 
   }, []);
-  console.log(selectedQuantitativeFitTest)
+  console.log(employee)
   return (
-    <div className="flex flex-col mt-4 px-2 items-center justify-center w-full">
-      <QuantitativeFitTestModal fitTestID={selectedQuantitativeFitTest} open={quantOpen} setOpen={setQuantOpen} employee={employee} />
-      <EmployeeDetails employee={employee}/>
-      <EmployeeQuantFitTests setSelectedQuantitativeFitTest={setSelectedQuantitativeFitTest} employee={employee} setQuantOpen={setQuantOpen}/>
-      <EmployeeQualFitTests employee={employee}/>
+    <div>
+      <button className='text-blue-500 p-2' onClick={() => {router.push(`/Company/Info/${employee.companyID}`)}}>
+        Back to Company
+      </button>
+      <div className="flex flex-col mt-4 px-2 items-center justify-center w-full">
+        <EmployeeDetails employee={employee}/>
+        {!showQuantFitTest &&
+          <div className='w-full'>
+            <EmployeeQuantFitTests setSelectedQuantitativeFitTest={setSelectedQuantitativeFitTest} employee={employee} setShowQuantFitTest={setShowQuantFitTest}/>
+            <EmployeeQualFitTests employee={employee}/>
+          </div>
+        }
+        {showQuantFitTest &&
+          <SelectedQuantFitTest fitTestID={selectedQuantitativeFitTest} setShowQuantFitTest={setShowQuantFitTest} employee={employee} />
+        }
+      </div>
     </div>
   );
 };

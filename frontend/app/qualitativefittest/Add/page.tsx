@@ -89,7 +89,7 @@ const QualitativeFitTest = () => {
     try {
       await qualitativefittestApi.createQualitativeData(fittest);
       console.log('Qualitative test created successfully');
-      router.push('/Qualitativefittest')
+      router.back();
     } 
     catch (error) {
       console.error('Error creating fittest data:', error);
@@ -127,7 +127,7 @@ const QualitativeFitTest = () => {
       setFittest({...fittest, testpass: false})
     }
   },[fittest.exercise1, fittest.exercise2, fittest.exercise3, fittest.exercise4])
-  console.log(selectedRespirator)
+
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
@@ -325,12 +325,19 @@ const QualitativeFitTest = () => {
             required
           />
         </div>
-          <div>
+          <div className='flex justify-between'>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
             >
-              Create Qualitative Fit Test
+              Create
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              onClick={() => router.back()}
+            >
+              Cancel
             </button>
           </div>
         </form>
