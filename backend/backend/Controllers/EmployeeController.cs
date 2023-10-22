@@ -27,7 +27,11 @@ namespace backend.Controllers
           {
               return NotFound();
           }
-            return await _context.Employee.ToListAsync();
+        var employees = await _context.Employee
+            .Include(q => q.Company)
+            .ToListAsync();
+
+        return employees;
         }
 
         // GET: api/Employee/5
@@ -38,7 +42,13 @@ namespace backend.Controllers
           {
               return NotFound();
           }
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employee
+                       .Include(c => c.QualitativeRespiratorFitTests)
+                       .ThenInclude(e => e.Respirator)
+                       .Include(q => q.QuantitativeRespiratorFitTests)
+                       .ThenInclude(e => e.Respirator)
+                       .FirstOrDefaultAsync(c => c.employeeID == id);
+
 
             if (employee == null)
             {
@@ -58,26 +68,35 @@ namespace backend.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(employee).State = EntityState.Modified;
+            var existingEmployee = await _context.Employee.FindAsync(id);
+            if (existingEmployee == null)
+            {
+                return NotFound();
+            }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EmployeeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            // Update specific properties
+            existingEmployee.firstname = employee.firstname;
+            existingEmployee.middlename = employee.middlename;
+            existingEmployee.lastname = employee.lastname;
+            existingEmployee.address1 = employee.address1;
+            existingEmployee.address2 = employee.address2;
+            existingEmployee.address3 = employee.address3;
+            existingEmployee.city = employee.city;
+            existingEmployee.state = employee.state;
+            existingEmployee.zipcode = employee.zipcode;
+            existingEmployee.birthday = employee.birthday;
+            existingEmployee.companyID = employee.companyID;
+            existingEmployee.email = employee.email;
+            existingEmployee.phonenumber = employee.phonenumber;
+            existingEmployee.ssn = employee.ssn;
+            // Continue updating other properties as needed
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
+
 
         // POST: api/Employee
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

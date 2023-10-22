@@ -1,16 +1,18 @@
 export interface Company {
-  companyID?: number;
-  name?: string;
-  address1?: string;
-  address2?: string;
-  address3?: string;
-  city?: string;
-  state?: string;
-  zipcode?: string;
-  email?: string;
-  altemail?: string;
-  phonenumber?: string;
-  phonenumberext?: string;
+  companyID?: number,
+  name?: string,
+  address1?: string,
+  address2?: string,
+  address3?: string,
+  city?: string,
+  state?: string,
+  zipcode?: string,
+  email?: string,
+  altemail?: string,
+  phonenumber?: string,
+  phonenumberext?: string,
+  archived?: boolean
+  employees?: Employee
 }
 
 export interface Employee {
@@ -21,14 +23,17 @@ export interface Employee {
   address1: string,
   address2: string,
   address3: string,
-  birthday: Date;
+  birthday: string,
   ssn: string,
   city: string,
   state: string,
   zipcode: string,
   email: string,
-  phonenumber: string
-  companyID: number
+  phonenumber: string,
+  companyID?: number,
+  company?: Company,
+  quantitativeRespiratorFitTests?: QuantitativeFitTest[],
+  qualitativeRespiratorFitTests?: QualitativeFitTest[]
 }
 
 export interface Respirator {
@@ -40,11 +45,11 @@ export interface Respirator {
   archived?: boolean
 }
 
-export interface QuantitativeFitTest{
-  testpass: boolean,
-  testdate: Date,
-  testtime: Date,
-  testexpiration: Date,
+export interface QuantitativeFitTest {
+  quantitativeTestID?: number,
+  testpass?: boolean,
+  testdate?: Date,
+  testexpiration?: Date,
   fitfactor1: number,
   fitfactor2: number,
   fitfactor3: number,
@@ -56,15 +61,18 @@ export interface QuantitativeFitTest{
   overallfitfactor: number,
   employeeID: number | undefined,
   respiratorID: number | undefined,
-  size: string,
-  testtype: string
+  size?: string,
+  testtype?: string,
+  employee?: Employee,
+  respirator?: Respirator,
+  company?: Company
 }
 
 export interface QualitativeFitTest{
+  qualitativeTestID?: number,
   testpass: boolean,
-  testdate: Date,
-  testtime: Date,
-  testexpiration: Date,
+  testdate?: Date,
+  testexpiration?: Date,
   exercise1: boolean | undefined,
   exercise2: boolean | undefined,
   exercise3: boolean | undefined,
@@ -73,5 +81,8 @@ export interface QualitativeFitTest{
   respiratorID: number | undefined,
   size: string,
   testtype: string,
-  tastethreshold: number
+  tastethreshold: number,
+  employee?: Employee,
+  respirator?: Respirator,
+  company?: Company
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 public class QualitativeRespiratorFitTest
 {
@@ -9,16 +10,10 @@ public class QualitativeRespiratorFitTest
     public bool testpass { get; set; }
 
     [Required]
-    [DataType(DataType.Date)]
-    public System.DateTime testdate { get; set; }
+    public DateTime testdate { get; set; }
 
     [Required]
-    [DataType(DataType.Time)]
-    public System.DateTime testtime { get; set; }
-
-    [Required]
-    [DataType(DataType.Date)]
-    public System.DateTime testexpiration { get; set; }
+    public DateTime testexpiration { get; set; }
 
     [MaxLength(255)]
     public string? testtype { get; set; }
@@ -26,7 +21,7 @@ public class QualitativeRespiratorFitTest
     public int tastethreshold { get; set; }
 
     [MaxLength(255)]
-    public string size { get; set; }
+    public string? size { get; set; }
 
     public bool exercise1 { get; set; }
 
@@ -42,6 +37,10 @@ public class QualitativeRespiratorFitTest
     [Required]
     public int respiratorID { get; set; }
 
+    [JsonIgnore]
+    public Employee? Employee { get; set; }
+
+    public Respirator? Respirator { get; set; }
 }
 
 

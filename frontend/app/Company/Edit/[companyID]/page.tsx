@@ -1,10 +1,13 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { companyApi } from '../../api/company/route';
-import { Company } from '../../interfaces';
+import { companyApi } from '../../../api/company/route';
+import { Company } from '../../../interfaces';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
+
 
 const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => {
+  const router = useRouter();
   const [company, setCompany] = useState<Company>({
     companyID: undefined,
     name: undefined,
@@ -27,30 +30,12 @@ const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => 
     });
   };
 
-  const handleStyleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const style: string = e.target.value;
-    let fitfactor: number = Number(e.target.value);
-    if(style === "fullface"){
-      fitfactor = 500
-    }
-    else if(style === "halfface"){
-      fitfactor = 100
-    }
-    else if(style === "gasmask"){
-      fitfactor = 2000
-    }
-    else if(style === "ffd"){
-      fitfactor = 100
-    }
-
-    setCompany({...company, style: e.target.value, fitfactor: fitfactor });
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       if(company.companyID){
         await companyApi.updateCompany(company.companyID, company);
+        router.back();
         console.log('Company updated successfully');
       }
     } 
@@ -69,7 +54,7 @@ const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => 
       console.log(error)
     }
   }, [])
-  console.log(company)
+  
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       {company.companyID &&
@@ -78,58 +63,141 @@ const Edit = ({ params: { companyID } } : { params: { companyID: string } }) => 
         <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-md font-medium text-black">
-            Make
+            Name
           </label>
           <input
             type="text"
-            value={company.make}
-            name="make"
-            onChange={handleChange}
+            value={company.name}
+            name="name"
             className="mt-1 p-2 block w-full rounded-md shadow"
             required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-md font-medium text-black">
-            Model
-          </label>
-          <input
-            type="text"
-            value={company.model}
-            name="model"
-            onChange={handleChange}
-            className="mt-1 p-2 block w-full rounded-md shadow"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-md font-medium text-black">
-            Style
-          </label>
-          <select
-            value={company.style}
-            name="style"
-            onChange={handleStyleSelect}
-            className="mt-1 p-2 block w-full rounded-md shadow"
-            required
-          >
-            <option value="fullface">Full Face</option>
-            <option value="halfface">Half Face</option>
-            <option value="ffd">Filtering Facepiece</option>
-            <option value="gasmask">Gas Mask</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block text-md font-medium text-black">
-            Fit Factor
-          </label>
-          <input
-            type="text"
-            value={company.fitfactor}
-            name="fitfactor"
             disabled
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Address 1
+          </label>
+          <input
+            type="text"
+            value={company.address1}
+            name="address1"
+            onChange={handleChange}
             className="mt-1 p-2 block w-full rounded-md shadow"
             required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Address 2
+          </label>
+          <input
+            type="text"
+            value={company.address2}
+            name="address2"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Address 3
+          </label>
+          <input
+            type="text"
+            value={company.address3}
+            name="address3"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            City
+          </label>
+          <input
+            type="text"
+            value={company.city}
+            name="city"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            State
+          </label>
+          <input
+            type="text"
+            value={company.state}
+            name="state"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Zip Code
+          </label>
+          <input
+            type="text"
+            value={company.zipcode}
+            name="zipcode"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Email
+          </label>
+          <input
+            type="text"
+            value={company.email}
+            name="email"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Alternate Email
+          </label>
+          <input
+            type="text"
+            value={company.altemail}
+            name="altemail"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Phone Number
+          </label>
+          <input
+            type="text"
+            value={company.phonenumber}
+            name="phonenumber"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-md font-medium text-black">
+            Ext
+          </label>
+          <input
+            type="text"
+            value={company.phonenumberext}
+            name="phonenumberext"
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full rounded-md shadow"
           />
         </div>
           <div className='flex justify-between'>

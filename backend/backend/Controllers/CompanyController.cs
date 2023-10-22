@@ -21,24 +21,34 @@ namespace backend.Controllers
 
         // GET: api/Company
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Company>>> GetCompany()
+        public async Task<ActionResult<IEnumerable<Company>>> GetCompany([FromQuery] bool includeArchived = false)
         {
-          if (_context.Company == null)
-          {
-              return NotFound();
-          }
-            return await _context.Company.ToListAsync();
+            var query = _context.Company;
+            if (query == null)
+            {
+                return NotFound();
+            }
+            if (includeArchived)
+            {
+                var archivedCompanies = await query.ToListAsync();
+                return archivedCompanies;
+            }
+            var nonArchivedRespirators = await query.Where(r => !r.archived).ToListAsync();
+            return nonArchivedRespirators;
         }
 
         // GET: api/Company/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Company>> GetCompany(int id)
         {
-          if (_context.Company == null)
-          {
-              return NotFound();
-          }
-            var company = await _context.Company.FindAsync(id);
+            if (_context.Company == null)
+            {
+                return NotFound();
+            }
+            var company = await _context.Company
+            .Include(c => c.Employees)
+            .FirstOrDefaultAsync(c => c.companyID == id);
+
 
             if (company == null)
             {

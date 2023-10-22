@@ -1,13 +1,17 @@
 import React from 'react';
-
-const Qualitative = () => {
+import QualitativeFitTestCardContainer from './qualiativefittestcardcontainer';
+import Link from 'next/link'
+const QualitativeFitTest = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <a href='/Qualitativefittest/Add'>
-        <div>New Qualitative</div>
-      </a>
+    <div className='p-2'>
+      <button className='bg-blue-500 p-2 rounded text-white'>
+        <Link href='/Qualitativefittest/Add'>
+          Add Qualitative Fit Test
+        </Link>
+      </button>
+      <QualitativeFitTestCardContainer/>
     </div>
   );
 };
 
-export default Qualitative;
+export default QualitativeFitTest;

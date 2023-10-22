@@ -13,9 +13,26 @@ export const employeeApi = {
       throw error;
     }
   },
-
+  getEmployeeById: async (employeeID: number) => {
+    try {
+      const response = await axios.get(`${apiBaseURL}/${employeeID}`);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
+  updateEmployee: async (employeeID: number, updatedEmployee: Employee) => {
+    try {
+      const response = await axios.put(`${apiBaseURL}/${employeeID}`, updatedEmployee);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
   createEmployeeData: async (employeeData: Employee) => {
-    console.log(employeeData)
+
     try{
       const response = await axios.post(apiBaseURL, employeeData);
       return response.data;

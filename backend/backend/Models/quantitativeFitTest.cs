@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 public class QuantitativeRespiratorFitTest
 {
@@ -9,16 +10,10 @@ public class QuantitativeRespiratorFitTest
     public bool testpass { get; set; }
 
     [Required]
-    [DataType(DataType.Date)]
-    public System.DateTime testdate { get; set; }
+    public DateTime testdate { get; set; }
 
     [Required]
-    [DataType(DataType.Time)]
-    public System.DateTime testtime { get; set; }
-
-    [Required]
-    [DataType(DataType.Date)]
-    public System.DateTime testexpiration { get; set; }
+    public DateTime testexpiration { get; set; }
 
     [MaxLength(255)]
     public string? testtype { get; set; }
@@ -61,6 +56,10 @@ public class QuantitativeRespiratorFitTest
     [Required]
     public int respiratorID { get; set; }
 
+    [JsonIgnore]
+    public Employee? Employee { get; set; }
+
+    public Respirator? Respirator { get; set; }
 }
 
 

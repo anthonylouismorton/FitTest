@@ -30,11 +30,11 @@ export default function CompanyCardContainer() {
     <div>
       <div className='pb-2'>
         <input type='checkbox' checked={archivedRecords} onChange={()=> setArchivedRecords(!archivedRecords)}/>
-        <label className='pl-2'>Include Archived Companys</label>
+        <label className='pl-2'>Include Archived Companies</label>
       </div>
       <div className="pt-2 flex flex-wrap space-x-4 space-y-4 items-end">
         {companyList.map((company) => (
-          <CompanyCard key={company.companyID} company={company} onArchive={handleArchiveCompany} archivedRecords={archivedRecords}/>
+          <CompanyCard key={company.companyID} company={company} onArchive={handleArchiveCompany}/>
         ))}
       </div>
     </div>

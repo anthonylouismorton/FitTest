@@ -4,7 +4,10 @@ import { quantitativefittestApi } from '../../api/quantitativefittest/route';
 import { respiratorApi } from '../../api/respirator/route';
 import { QuantitativeFitTest, Employee, Respirator } from '../../interfaces';
 import { employeeApi } from '../../api/employee/route';
+import { useRouter } from 'next/navigation'
+
 const QuantitativeFitTest = () => {
+  const router = useRouter();
   const [selectedEmployee, setSelectedEmployee] = useState<string | undefined>(undefined);
   const [selectedRespirator, setSelectedRespirator] = useState<Respirator | undefined>(undefined);
   const [employeeList, setEmployeeList] = useState<Employee[]>([]);
@@ -26,7 +29,6 @@ const QuantitativeFitTest = () => {
   const [fittest, setFittest] = useState<QuantitativeFitTest>({
     testpass: false,
     testdate: initialDate,
-    testtime: initialDate,
     testexpiration: expirationDate,
     fitfactor1: 0,
     fitfactor2: 0,
@@ -42,27 +44,7 @@ const QuantitativeFitTest = () => {
     respiratorID: undefined,
     size: "Small"
   });
-
-// Helper function to convert a time string to a Date object
-  const parseTime = (timeString: string) => {
-    const [hours, minutes] = timeString.split(':');
-    const date = new Date();
-    date.setHours(parseInt(hours, 10));
-    date.setMinutes(parseInt(minutes, 10));
-    return date;
-  };
-
   
-  // Helper function to format a Date object as a time string
-  const formatTime = (date: Date) => {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedTime = parseTime(e.target.value);
-    setFittest({ ...fittest, testtime: selectedTime });
-  };
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedDate = new Date(e.target.value);
     setFittest({ ...fittest, [e.target.name]: selectedDate });
@@ -92,7 +74,6 @@ const QuantitativeFitTest = () => {
   const handleEmployeeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     const selectedEmployee = JSON.parse(selectedValue);
-    console.log(selectedEmployee)
     setSelectedEmployee(selectedEmployee);
     setFittest({ ...fittest, employeeID: selectedEmployee.employeeID });
   };
@@ -104,12 +85,12 @@ const QuantitativeFitTest = () => {
     setFittest({ ...fittest, respiratorID: selectedRespirator.respiratorID });
   };
   
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await quantitativefittestApi.createQuantitativeData(fittest);
       console.log('Quantitative test created successfully');
+      router.back();
     } 
     catch (error) {
       console.error('Error creating fittest data:', error);
@@ -173,7 +154,7 @@ const QuantitativeFitTest = () => {
   },[fittest.fitfactor1, fittest.fitfactor2, fittest.fitfactor3, fittest.fitfactor4, fittest.fitfactor5, fittest.fitfactor6, fittest.fitfactor7, fittest.fitfactor8, selectedRespirator])
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen w-full">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-semibold mb-4">New Quantitative Fit Test</h2>
         <form onSubmit={handleSubmit}>
@@ -215,22 +196,9 @@ const QuantitativeFitTest = () => {
           </label>
           <input
             type="date"
-            value={fittest.testdate.toISOString().split('T')[0]}
+            value={fittest.testdate?.toISOString().split('T')[0]}
             name="testdate"
             onChange={handleDateChange}
-            className="mt-1 p-2 block w-full rounded-md border-gray-300"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Fit Test Time
-          </label>
-          <input
-            type="time"
-            value={formatTime(fittest.testtime)}
-            name="testtime"
-            onChange={handleTimeChange}
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
             required
           />
@@ -241,7 +209,7 @@ const QuantitativeFitTest = () => {
           </label>
           <input
             type="date"
-            value={fittest.testexpiration.toISOString().split('T')[0]}
+            value={fittest.testexpiration?.toISOString().split('T')[0]}
             name="testexpiration"
             onChange={handleDateChange}
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
@@ -403,17 +371,24 @@ const QuantitativeFitTest = () => {
             className="mt-1 p-2 block w-full rounded-md border-gray-300"
             required
           >
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
           </select>
         </div>
-          <div>
+        <div className='flex justify-between'>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
             >
-              Create Quantitative Fit Test
+              Create
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+              onClick={() => router.back()}
+            >
+              Cancel
             </button>
           </div>
         </form>

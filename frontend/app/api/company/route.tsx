@@ -14,6 +14,15 @@ export const companyApi = {
       throw error;
     }
   },
+  getCompanyById: async (companyID: number) => {
+    try {
+      const response = await axios.get(`${apiBaseURL}/${companyID}`);
+      return response.data
+    } catch (error)
+    {
+      throw error;
+    }
+  },
   deleteCompany: async (companyID: number) => {
     try {
       const response = await axios.delete(`${apiBaseURL}/${companyID}`);
