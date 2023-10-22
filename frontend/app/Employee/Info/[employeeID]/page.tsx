@@ -23,7 +23,7 @@ const Info = ({ params: { employeeID } } : { params: { employeeID: string } }) =
     address2: "",
     address3: "",
     birthday: "",
-    ssn: "",
+    hashedssn: "",
     city: "",
     state: "",
     zipcode: "",

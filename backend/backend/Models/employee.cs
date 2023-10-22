@@ -24,7 +24,7 @@ public class Employee
 
     [Required]
     [MaxLength(255)]
-    public string? ssn { get; set; }
+    public byte hashedssn { get; set; }
 
     [MaxLength(255)]
     public string? address1 { get; set; }

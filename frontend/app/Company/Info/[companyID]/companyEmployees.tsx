@@ -40,7 +40,7 @@ const EmployeesTable = ({ company, companyID } : {company: Company, companyID?: 
               <td className="whitespace-nowrap px-6 py-4 text-center">{employee.employeeID}</td>
               <td className="whitespace-nowrap px-6 py-4 text-center">{employee.phonenumber}</td>
               <td className="whitespace-nowrap px-6 py-4 text-center">{employee.email}</td>
-              <td className="whitespace-nowrap px-6 py-4 text-center">{employee.ssn.slice(-4)}</td>
+              <td className="whitespace-nowrap px-6 py-4 text-center">{employee.hashedssn.slice(-4)}</td>
             </tr>
           ))}
         </tbody>
