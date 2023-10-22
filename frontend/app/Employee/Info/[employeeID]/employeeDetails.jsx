@@ -28,7 +28,7 @@ const EmployeeDetails = ({employee}) => {
           </div>
           <div className="mb-4 w-72">
             <div className='font-bold text-xl mb-1'>SSN</div>
-            <div>{`XXX-XX-${employee.ssn.slice(-4)}`}</div>
+            <div>{`XXX-XX-${employee.hashedssn.slice(-4)}`}</div>
           </div>
           <div className="mb-4 w-72">
             <div className='font-bold text-xl mb-1'>Email</div>

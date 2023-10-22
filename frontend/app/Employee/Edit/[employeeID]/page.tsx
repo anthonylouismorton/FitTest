@@ -13,7 +13,7 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
     phone: false,
     email: false,
     state: false,
-    ssn: false
+    hashedssn: false
   });
   const [employee, setEmployee] = useState<Employee>({
     firstname: "",
@@ -23,7 +23,7 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
     address2: "",
     address3: "",
     birthday:"",
-    ssn: "",
+    hashedssn: "",
     city: "",
     state: "",
     zipcode: "",
@@ -48,13 +48,13 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
     const phoneFormat = /^\d{3}-\d{3}-\d{4}$/;
     const emailFormat = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     const stateAbbreviationFormat = /^[A-Z]{2}$/;
-    const ssnFormat = /^\d{3}-\d{2}-\d{4}$/;
+    const hashedssnFormat = /^\d{3}-\d{2}-\d{4}$/;
     const checkDate = dateFormat.test(new Date(employee.birthday).toISOString().split('T')[0]);
     const checkZip = zipCodeFormat.test(employee.zipcode);
     const checkPhone = phoneFormat.test(employee.phonenumber);
     const checkEmail = emailFormat.test(employee.email);
     const checkState = stateAbbreviationFormat.test(employee.state);
-    const checkSSN = ssnFormat.test(employee.ssn);
+    const checkSSN = hashedssnFormat.test(employee.hashedssn);
 
     setValidation((prevValidation) => ({
       ...prevValidation,
@@ -63,7 +63,7 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
       phone: !checkPhone,
       email: !checkEmail,
       state: !checkState,
-      ssn: !checkSSN
+      hashedssn: !checkSSN
     }));
 
     if(checkDate && checkZip && checkPhone && checkEmail && checkState && checkSSN){
@@ -76,7 +76,7 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
         address2: employee.address2,
         address3: employee.address3,
         birthday: employee.birthday?.toString().split('T')[0],
-        ssn: employee.ssn?.replaceAll("-",""),
+        hashedssn: employee.hashedssn?.replaceAll("-",""),
         city: employee.city,
         state: employee.state,
         zipcode: employee.zipcode,
@@ -100,7 +100,7 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
   useEffect(() => {
     const getEmployee = async () => {
       var employeeInfo = await employeeApi.getEmployeeById(Number(employeeID))
-      setEmployee({...employeeInfo, phonenumber: employeeInfo.phonenumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'),  ssn: `${employeeInfo.ssn.slice(0,3)}-${employeeInfo.ssn.slice(4,6)}-${employeeInfo.ssn.slice(-4)}`})
+      setEmployee({...employeeInfo, phonenumber: employeeInfo.phonenumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'),  hashedssn: `${employeeInfo.hashedssn.slice(0,3)}-${employeeInfo.hashedssn.slice(4,6)}-${employeeInfo.hashedssn.slice(-4)}`})
     }
     getEmployee();
   }, []);
@@ -201,7 +201,7 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
               className="mt-1 p-2 block w-full rounded-md border-gray-300"
             />
           </div>
-          {validation.ssn && (
+          {validation.hashedssn && (
             <p className="text-red-500 text-xs mt-1">SSN should be in XXX-XX-XXXX format</p>
           )}
           <div className="mb-4">
@@ -210,8 +210,8 @@ const Edit = ({ params: { employeeID } } : { params: { employeeID: string } }) =
             </label>
             <input
               type="text"
-              value={employee.ssn}
-              name="ssn"
+              value={employee.hashedssn}
+              name="hashedssn"
               placeholder='XXX-XX-XXXX'
               onChange={handleChange}
               className="mt-1 p-2 block w-full rounded-md border-gray-300"

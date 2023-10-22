@@ -24,7 +24,7 @@ export interface Employee {
   address2: string,
   address3: string,
   birthday: string,
-  ssn: string,
+  hashedssn: string,
   city: string,
   state: string,
   zipcode: string,
