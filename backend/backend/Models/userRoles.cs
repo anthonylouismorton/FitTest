@@ -4,6 +4,6 @@ using System.ComponentModel.DataAnnotations;
 public class UserRoles
 {
     [Key]
-    public int userroleID { get; set; }
+    public int userRoleID { get; set; }
 }
 
