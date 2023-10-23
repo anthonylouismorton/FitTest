@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  height: 100vh; /* Use "100vh" to set the height to the full viewport height */
+}
