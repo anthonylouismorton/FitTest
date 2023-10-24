@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react';
 import { User } from '../interfaces';
-import { validateApi } from '../api/validate/route';
 import { userApi } from '../api/user/route';
+import { POST } from '../api/auth/[...nextauth]/route';
 
 export default function Login() {
   const [validation, setValidation] = useState({
@@ -48,8 +48,11 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const userValidated = await validateApi.validateUser(loginUser);
-      setValidation({incorrectPassword: false, passwordMatch: false, userNotFound: false })
+      // const userValidated = await validateApi.validateUser(loginUser);
+      // setValidation({incorrectPassword: false, passwordMatch: false, userNotFound: false })
+      console.log('here')
+      const testApi = await POST(loginUser)
+      console.log(testApi)
     } catch (error) {
       if (typeof error === 'object') {
         const response = error as { response: any };
@@ -84,7 +87,7 @@ export default function Login() {
       console.error(error);
     }
   };
-  console.log(validation)
+
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       {!showRegister ? (
