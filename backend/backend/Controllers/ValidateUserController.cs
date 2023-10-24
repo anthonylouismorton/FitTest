@@ -105,7 +105,7 @@ namespace backend.Controllers
 
             if (existingUser == null)
             {
-                return BadRequest("Invalid User");
+                return BadRequest("No User Found");
             }
             string saltedhash = BCrypt.Net.BCrypt.HashPassword(user.password, existingUser.salt);
 
