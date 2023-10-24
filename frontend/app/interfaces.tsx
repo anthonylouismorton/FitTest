@@ -45,6 +45,18 @@ export interface Respirator {
   archived?: boolean
 }
 
+export interface User {
+  userID?: number,
+  username?: string,
+  firstname?: string,
+  lastname?: string,
+  email?: string,
+  password?: string,
+  accountstatus?: string,
+  registrationdate?: Date,
+  permissions?: string
+}
+
 export interface QuantitativeFitTest {
   quantitativeTestID?: number,
   testpass?: boolean,

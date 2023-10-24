@@ -88,7 +88,7 @@ namespace backend.Controllers
             existingEmployee.companyID = employee.companyID;
             existingEmployee.email = employee.email;
             existingEmployee.phonenumber = employee.phonenumber;
-            existingEmployee.ssn = employee.ssn;
+            existingEmployee.hashedssn = employee.hashedssn;
             // Continue updating other properties as needed
 
             // Save changes to the database

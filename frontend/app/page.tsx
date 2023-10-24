@@ -1,11 +1,9 @@
-import Login from './login';
+import React from 'react'
 
 export default function Home() {
 
   return (
-    <div className='flex h-screen text-center justify-center content-center'>
-      <Login/>
-    </div>
+    <h2>hello</h2>
   );
   
 }
