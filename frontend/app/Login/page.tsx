@@ -1,11 +1,14 @@
 "use client"
 import React, { useState } from 'react';
 import { User } from '../interfaces';
+import { validateApi } from '../api/validate/route';
 import { userApi } from '../api/user/route';
 
 export default function Login() {
   const [validation, setValidation] = useState({
-    passwordMatch: false
+    passwordMatch: false,
+    userNotFound: false,
+    incorrectPassword: false
   });
   const [showRegister, setShowRegister] = useState<Boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -45,31 +48,43 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const userValidated = await userApi.validateUser(loginUser);
-      console.log('User validated', userValidated);
-    } 
-    catch (error) {
-      console.error('Error creating fittest data:', error);
+      const userValidated = await validateApi.validateUser(loginUser);
+      setValidation({incorrectPassword: false, passwordMatch: false, userNotFound: false })
+    } catch (error) {
+      if (typeof error === 'object') {
+        const response = error as { response: any };
+        if ('response' in response) {
+          if(response.response.data.detail === 'Invalid User'){
+            setValidation({incorrectPassword: false, passwordMatch: false, userNotFound: true })
+          }
+          else if(response.response.data.detail === 'Incorrect Password'){
+            setValidation({incorrectPassword: true, passwordMatch: false, userNotFound: false })
+          }
+        }
+      }
+      else{
+        console.log(error)
+      }
     }
+    
   };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       if(registerUser?.password === confirmPassword) {
-        setValidation({passwordMatch: false})
+        setValidation({ ...validation, passwordMatch: false })
         await userApi.createUserData(registerUser)
       }
       else{
-        setValidation({passwordMatch: true})
+        setValidation({ ...validation, passwordMatch: true })
       }
-      // const userValidated = await userApi.validateUser(loginUser);
     } 
     catch (error) {
-      console.error('Error creating fittest data:', error);
+      console.error(error);
     }
   };
-  console.log(confirmPassword)
+  console.log(validation)
   return (
     <div className="flex items-center justify-center min-h-screen w-full">
       {!showRegister ? (
@@ -79,6 +94,9 @@ export default function Login() {
               Login
             </h2>
             <div className="mb-4">
+            {validation.userNotFound && (
+              <p className="text-red-500 text-xs mt-1">Please check username or register below</p>
+            )}
               <label className="block text-md font-medium text-black">Username</label>
               <input
                 type="text"
@@ -89,6 +107,9 @@ export default function Login() {
               />
             </div>
             <div className="mb-4">
+            {validation.incorrectPassword && (
+              <p className="text-red-500 text-xs mt-1">Incorrect password</p>
+            )}
               <label className="block text-md font-medium text-black">Password</label>
               <input
                 type="password"
