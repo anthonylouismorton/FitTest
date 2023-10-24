@@ -33,7 +33,10 @@ export const OPTIONS: NextAuthOptions = {
         }
       }
     })
-  ]
+  ],
+  pages: {
+    signIn: "/signIn"
+  }
 };
 
 const handler = NextAuth(OPTIONS);

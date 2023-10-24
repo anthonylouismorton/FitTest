@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { User } from '../interfaces';
 import { userApi } from '../api/user/route';
-// import { signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 export default function Login() {
   const [validation, setValidation] = useState({
@@ -51,12 +51,12 @@ export default function Login() {
       // const userValidated = await validateApi.validateUser(loginUser);
       // setValidation({incorrectPassword: false, passwordMatch: false, userNotFound: false })
       console.log('here')
-      // await signIn("credentials", {
-      //   username: loginUser.username,
-      //   password: loginUser.password,
-      //   // redirect: true,
-      //   // callbackUrl: "/"
-      // })
+      await signIn("credentials", {
+        username: loginUser.username,
+        password: loginUser.password,
+        redirect: true,
+        callbackUrl: "/"
+      })
       
     } catch (error) {
       if (typeof error === 'object') {
