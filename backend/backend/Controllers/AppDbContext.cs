@@ -18,6 +18,8 @@ public class AppDbContext : DbContext
     {
     }
 
+    public DbSet<UserRole>? UserRole { get; set; }
+
 
 
 
