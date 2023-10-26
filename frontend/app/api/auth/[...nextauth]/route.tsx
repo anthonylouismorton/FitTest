@@ -20,11 +20,15 @@ export const OPTIONS: NextAuthOptions = {
             headers: { "Content-Type": "application/json" }
           });
           
-          const user = await res.json();
-          console.log(user);
+          var user = await res.json();
+          var user = {
+            ...user,
+            role: user.accountstatus
+          }
 
           if (user) {
-            return user;
+            console.log(user)
+            return user
           }
 
           return null;
@@ -33,7 +37,20 @@ export const OPTIONS: NextAuthOptions = {
         }
       }
     })
-  ]
+  ],
+  callbacks: {
+    async jwt({token, user}){
+      if(user) token.role = user.role
+      return token
+    },
+    async session({ session, token}){
+      if(session?.user) session.user.role = token.role
+      return session
+    }
+  },
+  pages: {
+    signIn: "/signIn"
+  }
 };
 
 const handler = NextAuth(OPTIONS);
