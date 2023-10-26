@@ -4,7 +4,8 @@ import { User } from '../interfaces';
 import { userApi } from '../api/user/route';
 import { signIn } from 'next-auth/react';
 
-export default function Login() {
+export default function Login(searchParams?: Record<"callbackUrl" | "error", string>) {
+
   const [validation, setValidation] = useState({
     passwordMatch: false,
     userNotFound: false,
@@ -50,12 +51,11 @@ export default function Login() {
     try {
       // const userValidated = await validateApi.validateUser(loginUser);
       // setValidation({incorrectPassword: false, passwordMatch: false, userNotFound: false })
-      console.log('here')
       await signIn("credentials", {
         username: loginUser.username,
         password: loginUser.password,
         redirect: true,
-        callbackUrl: "/"
+        callbackUrl: searchParams?.callbackUrl ?? "/"
       })
       
     } catch (error) {
