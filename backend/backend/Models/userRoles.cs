@@ -1,9 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-public class UserRoles
+public class UserRole
 {
     [Key]
-    public int userRoleID { get; set; }
+    public int userroleID { get; set; }
+
+    [Required]
+    public string roletype { get; set; }
 }
 
