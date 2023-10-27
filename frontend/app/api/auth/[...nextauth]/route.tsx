@@ -21,14 +21,14 @@ export const OPTIONS: NextAuthOptions = {
           });
           
           var user = await res.json();
-          var user = {
+          console.log(user)
+          var sessionUser = {
             ...user,
-            role: user.accountstatus
+            role: user.userRole.roletype
           }
 
           if (user) {
-            console.log(user)
-            return user
+            return sessionUser
           }
 
           return null;

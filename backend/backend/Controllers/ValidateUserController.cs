@@ -100,7 +100,9 @@ namespace backend.Controllers
           {
               return Problem("Entity set 'AppDbContext.User'  is null.");
           }
-            var existingUser = await _context.User.FirstOrDefaultAsync(u => u.username == user.username);
+            var existingUser = await _context.User
+                .Include(u => u.UserRole)
+                .FirstOrDefaultAsync(u => u.username == user.username);
 
 
             if (existingUser == null)

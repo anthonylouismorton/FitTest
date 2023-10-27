@@ -54,7 +54,14 @@ export interface User {
   password?: string,
   accountstatus?: string,
   registrationdate?: Date,
-  permissions?: string
+  permissions?: string,
+  userrole: UserRole
+}
+
+export interface UserRole {
+  userroleID?: number,
+  roletype?: string,
+  user?: User
 }
 
 export interface QuantitativeFitTest {

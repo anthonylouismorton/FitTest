@@ -43,11 +43,14 @@ namespace backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-          if (_context.User == null)
-          {
-              return NotFound();
-          }
-            var user = await _context.User.FindAsync(id);
+            if (_context.User == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.User
+                .Include(q => q.UserRole)
+                .FirstOrDefaultAsync(u => u.userID == id);
 
             if (user == null)
             {
@@ -56,6 +59,7 @@ namespace backend.Controllers
 
             return user;
         }
+
 
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
