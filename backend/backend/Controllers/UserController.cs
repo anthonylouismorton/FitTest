@@ -27,7 +27,16 @@ namespace backend.Controllers
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            var user = await _context.User
+                .Include(q => q.UserRole)
+                .ToListAsync();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+            //return await _context.User.ToListAsync();
         }
 
         // GET: api/User/5

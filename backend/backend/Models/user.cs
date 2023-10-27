@@ -13,7 +13,7 @@ public class User
     public string? salt { get; set; }    
     public string? accountstatus { get; set; }
     public DateTime registrationdate { get; set; }
-    public int userroleID { get; set; }
+    public int? userroleID { get; set; }
 
     public UserRole? UserRole { get; set; }
     //public string? logindates { get; set; }
