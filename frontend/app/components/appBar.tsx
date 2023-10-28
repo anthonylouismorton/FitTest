@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const drawerWidth = 240;
 
@@ -38,6 +38,9 @@ export default function DrawerAppBar() {
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {session?.user &&
             <>
+            <Typography>
+              {session.user.email}
+            </Typography>
               <Button onClick={() => signOut()} sx={{ color: '#fff' }}>
                 Sign Out
               </Button>

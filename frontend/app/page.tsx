@@ -1,9 +1,12 @@
-import React from 'react'
+"use client"
+import React from 'react';
+import SignInPage from './components/signInPage';
 
 export default async function Home() {
 
   return (
     <>
+      <SignInPage/>
     </>
   );
   

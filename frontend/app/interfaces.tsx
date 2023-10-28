@@ -55,7 +55,7 @@ export interface User {
   accountstatus?: string,
   registrationdate?: Date,
   permissions?: string,
-  userrole: UserRole
+  userrole?: UserRole
 }
 
 export interface UserRole {
