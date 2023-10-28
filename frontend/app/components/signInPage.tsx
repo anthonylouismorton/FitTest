@@ -97,7 +97,7 @@ export default function SignIn(props: Props) {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-full">
+    <div className="flex items-center justify-center w-full min-h-screen">
       {!showRegister ? (
         <form onSubmit={handleLogin}>
           <div className="bg-white p-8 rounded-lg shadow-lg w-96">

@@ -24,7 +24,8 @@ export const OPTIONS: NextAuthOptions = {
           console.log(user)
           var sessionUser = {
             ...user,
-            role: user.userRole.roletype
+            role: user.userRole.roletype,
+            name: `${user.firstname} ${user.lastname}`
           }
 
           if (user) {

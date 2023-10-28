@@ -9,7 +9,7 @@ export default withAuth(
     if(request.nextUrl.pathname.startsWith("/Respirator")
       && request.nextauth.token?.role !== "admin"){
       return NextResponse.rewrite(
-        new URL("/admindenied", request.url)
+        new URL("/unauthorized/admin", request.url)
       )}
   },
   {
@@ -22,6 +22,5 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ['/Respirator/:path*']}
 
   

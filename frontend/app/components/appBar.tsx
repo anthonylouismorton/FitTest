@@ -14,10 +14,10 @@ const drawerWidth = 240;
 
 export default function DrawerAppBar() {
   const { data: session } = useSession();
-  console.log(session)
+
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
+    {session?.user &&
       <AppBar component="nav">
         <Toolbar>
           <IconButton
@@ -36,22 +36,18 @@ export default function DrawerAppBar() {
             MUI
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {session?.user &&
             <>
-            <Typography>
-              {session.user.email}
-            </Typography>
               <Button onClick={() => signOut()} sx={{ color: '#fff' }}>
                 Sign Out
               </Button>
               <Button sx={{ color: '#fff' }}>
-                Profile
+                {session?.user.name}
               </Button>
             </>
-            }
           </Box>
         </Toolbar>
       </AppBar>
+    }
     </Box>
   );
 }

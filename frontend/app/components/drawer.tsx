@@ -14,6 +14,7 @@ export default function PermanentDrawerLeft() {
   const { data: session } = useSession();
   return (
     <Box sx={{ display: 'flex' }}>
+      {session?.user &&
       <Drawer
         sx={{
           width: drawerWidth,
@@ -27,7 +28,6 @@ export default function PermanentDrawerLeft() {
         variant="permanent"
         anchor="left"
       >
-      {session?.user &&
       <List>
         {session?.user.role === "admin" && 
           <ListItem disablePadding>
@@ -52,8 +52,8 @@ export default function PermanentDrawerLeft() {
           </ListItemButton>
         </ListItem>
       </List>
-      }
       </Drawer>
+    }
     </Box>
   );
 }

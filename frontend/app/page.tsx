@@ -1,12 +1,13 @@
-"use client"
 import React from 'react';
 import SignInPage from './components/signInPage';
 
-export default async function Home() {
+export default function Home() {
 
   return (
     <>
-      <SignInPage/>
+    <div className='flex flex-col w-full min-h-screen justify-center items-center'>
+      <h1 className='mb-4 text-2xl font-semibold'>Greetings</h1>
+    </div>
     </>
   );
   
